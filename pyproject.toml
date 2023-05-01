@@ -1,0 +1,87 @@
+[tool.poetry]
+name = "prfiesta"
+version = "0.0.1"
+description = ""
+authors = ["kiran94"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pygithub = "^1.58.1"
+click = "^8.1.3"
+pandas = "^2.0.1"
+pyarrow = "^11.0.0"
+rich = "^13.3.5"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.0.263"
+jupyterlab = "^3.6.3"
+polars = "^0.17.10"
+pytest = "^7.3.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.ruff]
+line-length = 160
+select = [
+    "F",
+    "E",
+    "C90",
+    "I",
+    "N",
+    "D",
+    "UP",
+    "YTT",
+    "ANN",
+    "S",
+    "BLE",
+    "FBT",
+    "B",
+    "A",
+    "COM",
+    "C4",
+    "DTZ",
+    "T10",
+    "DJ",
+    "EM",
+    "EXE",
+    "ISC",
+    "ICN",
+    "G",
+    "INP",
+    "PIE",
+    "T20",
+    "PYI",
+    "PT",
+    "Q",
+    "RSE",
+    "RET",
+    "SLF",
+    "SIM",
+    "TID",
+    "TCH",
+    "INT",
+    "ARG",
+    "PTH",
+    "ERA",
+    "PD",
+    "PGH",
+    "PL",
+    "TRY",
+    "NPY",
+    "RUF"
+]
+
+ignore = [
+    "D100",
+    "D101",
+    "D103",
+    "D104",
+    "ANN101",
+]
+
