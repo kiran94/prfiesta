@@ -87,7 +87,7 @@ def test_collect(
         collect_params: dict,
         github_issues: list[Mock],
         expected_github_query: str,
-    ):
+    ) -> None:
 
     spinner_mock = Mock()
     collector_params = {

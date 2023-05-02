@@ -106,20 +106,20 @@ class GitHubCollector:
 
         return ' '.join(query)
 
-    def _move_column_to_end(self, df):
+    def _move_column_to_end(self, df: pd.DataFrame) -> pd.DataFrame:
         for col in self._move_to_end_columns:
             df.insert(len(df.columns)-1, col, df.pop(col))
             df.drop(columns=col)
 
         return df
 
-    def _parse_datetime_columns(self, df) -> pd.DataFrame:
+    def _parse_datetime_columns(self, df: pd.DataFrame) -> pd.DataFrame:
         for col in self._datetime_columns:
             df[col] = pd.to_datetime(df[col], errors='ignore')
         return df
 
 
-    def _update_spinner(self, message, style=SPINNER_STYLE):
+    def _update_spinner(self, message: str, style: str=SPINNER_STYLE) -> None:
         if self._spinner:
             self._spinner.update(text=message, style=style)
 

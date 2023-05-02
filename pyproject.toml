@@ -39,7 +39,7 @@ select = [
     "N",     # pep8-naming
     "UP",    # pyupgrade
     "YTT",   # flake8-2020
-    # "ANN", # flake8-annotations
+    "ANN",   # flake8-annotations
     "S",     # flake8-bandit
     "BLE",   # flake8-blind-except
     "B",     # flake8-bugbear
@@ -80,8 +80,10 @@ select = [
 ]
 
 ignore = [
-    "S101", # asserts are used in unit tests
-    "EM101", # not a big deal if the error message is duplicated in the traceback
+    "S101",   # asserts are used in unit tests
+    "EM101",  # not a big deal if the error message is duplicated in the traceback
+    "ANN101", # ignore missing type annotation on self
+    "ANN003", # ignore missing type annotations on **kwargs
 ]
 
 [tool.ruff.flake8-quotes]

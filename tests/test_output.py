@@ -12,7 +12,7 @@ from prfiesta.output import output_frame
     ('parquet'),
 ])
 @patch('prfiesta.output.os')
-def test_output_frame(mock_os: Mock, output_type: str):
+def test_output_frame(mock_os: Mock, output_type: str) -> None:
 
     mock_frame: Mock = Mock()
     mock_spinner: Mock = Mock()
@@ -30,7 +30,7 @@ def test_output_frame(mock_os: Mock, output_type: str):
         assert [call('output/export.2021-01-01_00:00:00.parquet', index=False)] == mock_frame.to_parquet.call_args_list
 
 @patch('prfiesta.output.os')
-def test_output_frame_unknown_type(mock_os: Mock):
+def test_output_frame_unknown_type(mock_os: Mock) -> None:
 
     mock_frame: Mock = Mock()
     mock_spinner: Mock = Mock()
