@@ -26,69 +26,61 @@ pytest-cov = "^4.0.0"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-
 [tool.ruff]
 line-length = 160
+
+# All Rules: https://beta.ruff.rs/docs/rules/
 select = [
-    "F",
-    "E",
-    "C90",
-    "I",
-    "N",
-    "D",
-    "UP",
-    "YTT",
-    "ANN",
-    "S",
-    "BLE",
-    "FBT",
-    "B",
-    "A",
-    "COM",
-    "C4",
-    "DTZ",
-    "T10",
-    "DJ",
-    "EM",
-    "EXE",
-    "ISC",
-    "ICN",
-    "G",
-    "INP",
-    "PIE",
-    "T20",
-    "PYI",
-    "PT",
-    "Q",
-    "RSE",
-    "RET",
-    "SLF",
-    "SIM",
-    "TID",
-    "TCH",
-    "INT",
-    "ARG",
-    "PTH",
-    "ERA",
-    "PD",
-    "PGH",
-    "PL",
-    "TRY",
-    "NPY",
-    "RUF"
+    "F",     # pyflakes
+    "E",     # pycodestyle
+    "C90",   # macabe complexity
+    "I",     # isort
+    "W",     # warning
+    "N",     # pep8-naming
+    "UP",    # pyupgrade
+    "YTT",   # flake8-2020
+    # "ANN", # flake8-annotations
+    "S",     # flake8-bandit
+    "BLE",   # flake8-blind-except
+    "B",     # flake8-bugbear
+    "A",     # flake8-builtins
+    "COM",   # flake8-commas
+    "C4",    # flake8-comprehensions
+    # "DTZ", # flake8-datetimez
+    "T10",   # flake8-debugger
+    "DJ",    # flake8-django
+    "EM",    # flake8-errmsg
+    "EXE",   # flake8-executable
+    "ISC",   # flake8-implicit-str-concat
+    "ICN",   # flake8-import-conventions
+    "G",     # flake8-logging-format
+    "INP",   # flake8-no-pep420
+    "PIE",   # flake8-pie
+    "T20",   # flake8-print
+    "PYI",   # flake8-pyi
+    "PT",    # flake8-pytest-style
+    # "Q",   # flake8-quotes
+    "RSE",   # flake8-raise
+    "RET",   # flake8-return
+    # "SLF", # flake8-self
+    "SIM",   # flake8-simplify
+    "TID",   # flake8-tidy-imports
+    "INT",   # flake8-gettext
+    "ARG",   # flake8-unused-arguments
+    # "PTH", # flake8-use-pathlib
+    "ERA",   # eradicate
+    "PD",    # pandas-vet
+    "PGH",   # pygrep-hooks
+    "PL",    # pylint
+    "PLE",   # error
+    "PLR",   # refactor
+    "PLW",   # warning
+    "NPY",   # numpy-specific-rules
+    "RUF",   # ruff-specific-rules
 ]
 
 ignore = [
-    "D100",
-    "D101",
-    "D103",
-    "D104",
-    "ANN101",
-    "D211",
-    "D212",
-    "D401",
-    "TRY003",
-    "EM101",
-    "S101"
+    "S101", # asserts are used in unit tests
+    "EM101", # not a big deal if the error message is duplicated in the traceback
 ]
 

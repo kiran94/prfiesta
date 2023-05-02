@@ -14,7 +14,11 @@ output_directory = "output"
 OUTPUT_TYPE = Literal["csv", "parquet"]
 
 
-def output_frame(frame: pd.DataFrame, output_type: OUTPUT_TYPE, spinner: Spinner, output_name: str = "export", timestamp: datetime = datetime.now()) -> None:
+def output_frame(frame: pd.DataFrame, output_type: OUTPUT_TYPE, spinner: Spinner, output_name: str = "export", timestamp: datetime = None) -> None:
+
+    if not timestamp:
+        timestamp = datetime.now()
+
     os.makedirs(output_directory, exist_ok=True)
 
     output_name = str(output_name) + "." + timestamp.strftime("%Y-%m-%d_%H:%M:%S") + "." + output_type
@@ -32,4 +36,4 @@ def output_frame(frame: pd.DataFrame, output_type: OUTPUT_TYPE, spinner: Spinner
         case _:
             raise ValueError("unknown output_type %s", output_type)
 
-    logger.info(f"Exported to {output_name}!")
+    logger.info("Exported to %s!", output_name)

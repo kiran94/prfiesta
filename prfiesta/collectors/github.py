@@ -127,4 +127,4 @@ class GitHubCollector:
 
 if __name__ == "__main__":  # pragma: nocover
     g = GitHubCollector()
-    print(g._construct_query(["kiran94", "hello"], datetime(2021, 1, 1), datetime(2021, 3, 1)))
+    logger.info(g._construct_query(["kiran94", "hello"], datetime(2021, 1, 1), datetime(2021, 3, 1)))
