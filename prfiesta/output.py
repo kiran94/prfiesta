@@ -24,7 +24,7 @@ def output_frame(frame: pd.DataFrame, output_type: OUTPUT_TYPE, spinner: Spinner
 
     match output_type:
         case "csv":
-            frame.to_csv(output_name, index=False, engine="pyarrow")
+            frame.to_csv(output_name, index=False)
 
         case "parquet":
             frame.to_parquet(output_name, index=False)

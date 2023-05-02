@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-from unittest.mock import ANY, Mock, call, patch
+from unittest.mock import Mock, call, patch
 
 import pytest
 
@@ -24,7 +24,7 @@ def test_output_frame(mock_os: Mock, output_type: str):
     assert mock_spinner.update.called
 
     if output_type == "csv":
-        assert [call("output/export.2021-01-01_00:00:00.csv", index=False, engine=ANY)] == mock_frame.to_csv.call_args_list
+        assert [call("output/export.2021-01-01_00:00:00.csv", index=False)] == mock_frame.to_csv.call_args_list
 
     elif output_type == "parquet":
         assert [call("output/export.2021-01-01_00:00:00.parquet", index=False)] == mock_frame.to_parquet.call_args_list
