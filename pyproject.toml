@@ -59,7 +59,7 @@ select = [
     "T20",   # flake8-print
     "PYI",   # flake8-pyi
     "PT",    # flake8-pytest-style
-    # "Q",   # flake8-quotes
+    "Q",     # flake8-quotes
     "RSE",   # flake8-raise
     "RET",   # flake8-return
     # "SLF", # flake8-self
@@ -84,3 +84,5 @@ ignore = [
     "EM101", # not a big deal if the error message is duplicated in the traceback
 ]
 
+[tool.ruff.flake8-quotes]
+inline-quotes = "single"

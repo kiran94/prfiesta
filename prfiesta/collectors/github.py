@@ -16,35 +16,35 @@ class GitHubCollector:
     def __init__(self, **kwargs) -> None:
 
         environment = GitHubEnvironment()
-        token = kwargs.get("token") or environment.get_token()
-        self._url = kwargs.get("url") or environment.get_url()
+        token = kwargs.get('token') or environment.get_token()
+        self._url = kwargs.get('url') or environment.get_url()
 
         self._github = Github(token, base_url=self._url)
-        self._spinner: Spinner = kwargs.get("spinner")
+        self._spinner: Spinner = kwargs.get('spinner')
 
-        self._sort_column = ["updated_at"]
+        self._sort_column = ['updated_at']
         self._drop_columns = [
-            "labels_url",
-            "comments_url",
-            "events_url",
-            "node_id",
-            "performed_via_github_app",
-            "active_lock_reason",
+            'labels_url',
+            'comments_url',
+            'events_url',
+            'node_id',
+            'performed_via_github_app',
+            'active_lock_reason',
         ]
         self._move_to_end_columns = [
-            "url",
-            "repository_url",
-            "html_url",
-            "timeline_url",
+            'url',
+            'repository_url',
+            'html_url',
+            'timeline_url',
         ]
         self._datetime_columns = [
-            "created_at",
-            "updated_at",
-            "closed_at",
-            "milestone.created_at",
-            "milestone.updated_at",
-            "milestone.due_on",
-            "milestone.closed_at",
+            'created_at',
+            'updated_at',
+            'closed_at',
+            'milestone.created_at',
+            'milestone.updated_at',
+            'milestone.due_on',
+            'milestone.closed_at',
         ]
 
 
@@ -52,24 +52,24 @@ class GitHubCollector:
 
         query = self._construct_query(users, after, before)
 
-        self._update_spinner(f"Searching {self._url} with[bold blue] {query}")
+        self._update_spinner(f'Searching {self._url} with[bold blue] {query}')
         pulls = self._github.search_issues(query=query)
 
         pull_request_data: list[dict] = []
         for pr in pulls:
-            pull_request_data.append(pr.__dict__["_rawData"])
+            pull_request_data.append(pr.__dict__['_rawData'])
 
         if not pull_request_data:
-            logger.warning("Did not find any results for this search criteria!")
+            logger.warning('Did not find any results for this search criteria!')
             return pd.DataFrame()
 
-        self._update_spinner("Post Processing")
+        self._update_spinner('Post Processing')
         pr_frame = pd.json_normalize(pull_request_data)
 
-        pr_frame = pr_frame.drop(columns=self._drop_columns, errors="ignore")
+        pr_frame = pr_frame.drop(columns=self._drop_columns, errors='ignore')
         pr_frame = pr_frame.sort_values(by=self._sort_column, ascending=False)
         pr_frame = self._parse_datetime_columns(pr_frame)
-        pr_frame["repository_name"] = pr_frame["repository_url"].str.extract(r"(.*)\/repos\/(?P<repository_name>(.*))")["repository_name"]
+        pr_frame['repository_name'] = pr_frame['repository_url'].str.extract(r'(.*)\/repos\/(?P<repository_name>(.*))')['repository_name']
         pr_frame = self._move_column_to_end(pr_frame)
 
         return pr_frame
@@ -92,10 +92,10 @@ class GitHubCollector:
         """
         query: list[str] = []
 
-        query.append("type:pr")
+        query.append('type:pr')
 
         for u in users:
-            query.append("author:" + u)
+            query.append('author:' + u)
 
         if before and after:
             query.append(f"updated:{after.strftime('%Y-%m-%d')}..{before.strftime('%Y-%m-%d')}")
@@ -104,7 +104,7 @@ class GitHubCollector:
         elif after:
             query.append(f"updated:>={after.strftime('%Y-%m-%d')}")
 
-        return " ".join(query)
+        return ' '.join(query)
 
     def _move_column_to_end(self, df):
         for col in self._move_to_end_columns:
@@ -115,7 +115,7 @@ class GitHubCollector:
 
     def _parse_datetime_columns(self, df) -> pd.DataFrame:
         for col in self._datetime_columns:
-            df[col] = pd.to_datetime(df[col], errors="ignore")
+            df[col] = pd.to_datetime(df[col], errors='ignore')
         return df
 
 
@@ -125,6 +125,6 @@ class GitHubCollector:
 
 
 
-if __name__ == "__main__":  # pragma: nocover
+if __name__ == '__main__':  # pragma: nocover
     g = GitHubCollector()
-    logger.info(g._construct_query(["kiran94", "hello"], datetime(2021, 1, 1), datetime(2021, 3, 1)))
+    logger.info(g._construct_query(['kiran94', 'hello'], datetime(2021, 1, 1), datetime(2021, 3, 1)))
