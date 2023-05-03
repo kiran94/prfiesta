@@ -1,5 +1,5 @@
 test:
-	python -m pytest -v
+	python -m pytest -vv
 
 lint:
 	python -m ruff check .
