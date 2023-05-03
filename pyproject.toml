@@ -84,6 +84,7 @@ ignore = [
     "EM101",  # not a big deal if the error message is duplicated in the traceback
     "ANN101", # ignore missing type annotation on self
     "ANN003", # ignore missing type annotations on **kwargs
+    "PLR0913" # ignore for test cases with high level of paramtatization
 ]
 
 [tool.ruff.flake8-quotes]
