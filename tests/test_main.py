@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 from unittest.mock import ANY, Mock, call, patch
 
@@ -65,6 +66,7 @@ def test_main_missing_users() -> None:
 @patch('prfiesta.__main__.Live')
 @patch('prfiesta.__main__.GitHubCollector')
 @patch('prfiesta.__main__.output_frame')
+@patch.dict(os.environ, {'GITHUB_TOKEN': 'token'}, clear=True)
 def test_main(
         mock_output_frame: Mock,
         mock_collector: Mock,
