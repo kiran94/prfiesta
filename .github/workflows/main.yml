@@ -55,6 +55,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: [terraform-lint] # TODO: build
+    permissions:
+      contents: write
     steps:
       - name: Release
         uses: go-semantic-release/action@v1
