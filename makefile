@@ -14,6 +14,10 @@ coverage:
 	python -m pytest -q --cov=prfiesta --cov-report=html # for local
 	python -m pytest -q --cov=prfiesta --cov-report=xml  # for sonarqube
 
+export_requirements:
+	poetry export --output requirements.txt --format requirements.txt
+	poetry export --with dev --output requirements-dev.txt --format requirements.txt
+
 clean:
 	rm ./coverage.xml
 	rm -rf ./htmlcov
