@@ -10,9 +10,9 @@ format:
 	python -m ruff check --fix .
 
 coverage:
-	python -m pytest --cov=prfiesta --cov-report=term # for local
-	python -m pytest --cov=prfiesta --cov-report=html # for local
-	python -m pytest --cov=prfiesta --cov-report=xml  # for sonarqube
+	python -m pytest -q --cov=prfiesta --cov-report=term # for local
+	python -m pytest -q --cov=prfiesta --cov-report=html # for local
+	python -m pytest -q --cov=prfiesta --cov-report=xml  # for sonarqube
 
 clean:
 	rm ./coverage.xml
