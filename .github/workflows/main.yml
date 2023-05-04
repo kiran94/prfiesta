@@ -1,0 +1,64 @@
+name: main
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+
+jobs:
+  # build:
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 10
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-python@v4
+  #       with:
+  #         python-version: '3.10'
+  #
+  #     - name: Install Tools
+  #       run: make install_tools
+  #
+  #     - name: Install Dependencies
+  #       run: |
+  #         make export_requirements
+  #         python -m pip install -r requirements.txt
+  #
+  #     - name: Lint
+  #       run: make lint
+  #
+  #     - name: Test
+  #       run: make test
+
+  terraform-lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TERRAFORM_DIRECTORY: terraform
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform Init
+        working-directory: ${{ env.TERRAFORM_DIRECTORY }}
+        run: terraform init -input=false -backend=false
+
+      - name: Terraform Format
+        working-directory: ${{ env.TERRAFORM_DIRECTORY }}
+        run: terraform fmt -check
+
+      - name: Terraform Validate
+        working-directory: ${{ env.TERRAFORM_DIRECTORY }}
+        run: terraform validate
+
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [terraform-lint] # TODO: build
+    steps:
+      - name: Release
+        uses: go-semantic-release/action@v1
+        if: github.ref == 'refs/heads/main'
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          allow-initial-development-versions: true
