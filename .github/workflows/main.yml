@@ -63,6 +63,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: [build, terraform-lint]
+    permissions:
+      contents: write
     steps:
       - name: Release
         uses: go-semantic-release/action@v1
