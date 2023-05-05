@@ -19,30 +19,40 @@ def test_main_missing_users() -> None:
     assert result.exit_code == FAILURE_CODE
 
 @pytest.mark.parametrize(('params', 'expected_collect_params', 'collect_response', 'expected_output_type'), [
+
+    pytest.param
     (
         ['--users', 'test_user'],
         [call(('test_user',), after=None, before=None)],
         pd.DataFrame(),
         'csv',
+        id='user_provided',
     ),
+    pytest.param
     (
         ['--users', 'test_user', '--after', '2020-01-01'],
         [call(('test_user',), after=datetime(2020, 1, 1), before=None)],
         pd.DataFrame(),
         'csv',
+        id='with_after',
     ),
+    pytest.param
     (
         ['--users', 'test_user', '--before', '2020-01-01'],
         [call(('test_user',), before=datetime(2020, 1, 1), after=None)],
         pd.DataFrame(),
         'csv',
+        id='with_before',
     ),
+    pytest.param
     (
         ['--users', 'test_user', '--before', '2020-01-01', '--after', '2009-01-01'],
         [call(('test_user',), before=datetime(2020, 1, 1), after=datetime(2009, 1, 1))],
         pd.DataFrame(),
         'csv',
+        id='with_before_and_after',
     ),
+    pytest.param
     (
         ['--users', 'test_user'],
         [call(('test_user',), after=None, before=None)],
@@ -51,7 +61,9 @@ def test_main_missing_users() -> None:
                 columns=['col1', 'col2', 'col3'],
         ),
         'csv',
+        id='with_collected_responses',
     ),
+    pytest.param
     (
         ['--users', 'test_user', '--output_type', 'parquet'],
         [call(('test_user',), after=None, before=None)],
@@ -60,6 +72,7 @@ def test_main_missing_users() -> None:
                 columns=['col1', 'col2', 'col3'],
         ),
         'parquet',
+        id='with_parquet',
     ),
 ])
 @patch('prfiesta.__main__.Spinner')
