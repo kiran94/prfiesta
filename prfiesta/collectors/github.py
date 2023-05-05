@@ -91,7 +91,7 @@ class GitHubCollector:
         All dates are inclusive.
         See GitHub Docs for full optons https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests
         """
-        query: list[str] = []
+        query: List[str] = []
 
         query.append('type:pr')
 
