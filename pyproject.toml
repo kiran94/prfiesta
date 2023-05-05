@@ -29,6 +29,9 @@ pytest-cov = "^4.0.0"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.poetry.scripts]
+prfiesta = 'prfiesta.__main__:main'
+
 [tool.ruff]
 line-length = 160
 target-version = "py38"
