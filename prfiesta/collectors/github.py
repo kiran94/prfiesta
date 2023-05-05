@@ -77,7 +77,7 @@ class GitHubCollector:
 
 
     @staticmethod
-    def _construct_query(users: list[str], after: datetime | None= None, before: datetime | None = None) -> str:
+    def _construct_query(users: List[str], after: Optional[datetime] = None, before: Optional[datetime] = None) -> str:
         """
         Constructs a GitHub Search Query
         that returns pull requests made by the passed users.
