@@ -5,7 +5,7 @@ from github.Consts import DEFAULT_BASE_URL as GITHUB_DEFAULT_BASE_URL
 
 class GitHubEnvironment:
 
-    def get_token(self) -> str:
+    def get_token(self):
         """Gets the authentication token for this environment."""
         token = os.environ.get('GITHUB_ENTERPRISE_TOKEN', os.environ.get('GITHUB_TOKEN'))
         if not token:
