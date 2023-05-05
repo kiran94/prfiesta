@@ -6,6 +6,9 @@ test:
 lint:
 	python -m ruff check .
 
+lint_ci:
+	python -m ruff check --format github .
+
 format:
 	python -m ruff check --fix .
 
