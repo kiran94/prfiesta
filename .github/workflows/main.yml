@@ -41,6 +41,11 @@ jobs:
       - name: Test
         run: make test
 
+      - uses: romeovs/lcov-reporter-action@v0.2.16
+        with:
+          lcov-file: coverage.lcov
+          delete-old-comments: true
+
   terraform-lint:
     runs-on: ubuntu-latest
     timeout-minutes: 10
