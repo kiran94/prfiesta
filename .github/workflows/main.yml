@@ -31,7 +31,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          make export_requirements
+          poetry run pip freeze > requirements.txt
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
 
