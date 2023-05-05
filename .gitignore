@@ -222,3 +222,5 @@ requirements-dev.txt
 
 *.csv
 *.parquet
+
+coverage.lcov
