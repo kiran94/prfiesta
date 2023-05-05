@@ -12,7 +12,7 @@ from prfiesta.__main__ import main
 FAILURE_CODE = 2
 
 
-def test_main_missing_users():
+def test_main_missing_users() -> None:
     runner = CliRunner()
     result = runner.invoke(main, [''])
 
