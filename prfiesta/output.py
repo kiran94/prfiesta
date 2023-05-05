@@ -1,5 +1,4 @@
 import logging
-import os
 from datetime import datetime
 from typing import Literal
 
@@ -10,19 +9,21 @@ from prfiesta import SPINNER_STYLE
 
 logger = logging.getLogger(__name__)
 
-output_directory = 'output'
 OUTPUT_TYPE = Literal['csv', 'parquet']
 
 
-def output_frame(frame: pd.DataFrame, output_type: OUTPUT_TYPE, spinner: Spinner, output_name: str = 'export', timestamp: datetime = None) -> None:
+def output_frame(
+        frame: pd.DataFrame,
+        output_type: OUTPUT_TYPE,
+        spinner: Spinner,
+        output_name: str = None,
+        timestamp: datetime = None) -> None:
 
-    if not timestamp:
-        timestamp = datetime.now()
+    if not output_name:
+        if not timestamp:
+            timestamp = datetime.now()
 
-    os.makedirs(output_directory, exist_ok=True)
-
-    output_name = str(output_name) + '.' + timestamp.strftime('%Y-%m-%d_%H:%M:%S') + '.' + output_type
-    output_name = os.path.join(output_directory, output_name)
+        output_name = f"export.{timestamp.strftime('%Y-%m-%d_%H:%M:%S')}.{output_type}"
 
     spinner.update(text=f'Writing export to {output_name}', style=SPINNER_STYLE)
 
