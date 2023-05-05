@@ -1,10 +1,14 @@
 [tool.poetry]
 name = "prfiesta"
 version = "0.0.1"
-description = ""
+description = "Analyze Individual Contributor Pull Requests"
 authors = ["kiran94"]
 license = "MIT"
 readme = "README.md"
+homepage = "https://github.com/kiran94/prfiesta"
+repository = "https://github.com/kiran94/prfiesta"
+documentation = "https://github.com/kiran94/prfiesta/README.md"
+keywords = [ "pull-request", "pull-request-review", "performance-review" ]
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -24,6 +28,9 @@ pytest-cov = "^4.0.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+prfiesta = 'prfiesta.__main__:main'
 
 [tool.ruff]
 line-length = 160
