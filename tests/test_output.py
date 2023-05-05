@@ -22,7 +22,7 @@ def test_output_frame(output_type: str, timestamp: datetime) -> None:
     assert mock_spinner.update.called
 
     if timestamp and output_type == 'csv':
-        assert [call('xport.2021-01-01_00:00:00.csv', index=False)] == mock_frame.to_csv.call_args_list
+        assert [call('export.2021-01-01_00:00:00.csv', index=False)] == mock_frame.to_csv.call_args_list
 
     elif timestamp and output_type == 'parquet':
         assert [call('export.2021-01-01_00:00:00.parquet', index=False)] == mock_frame.to_parquet.call_args_list
