@@ -27,14 +27,11 @@ def output_frame(
 
     spinner.update(text=f'Writing export to {output_name}', style=SPINNER_STYLE)
 
-    match output_type:
-        case 'csv':
-            frame.to_csv(output_name, index=False)
-
-        case 'parquet':
-            frame.to_parquet(output_name, index=False)
-
-        case _:
-            raise ValueError('unknown output_type %s', output_type)
+    if output_type == 'csv':
+        frame.to_csv(output_name, index=False)
+    elif output_type == 'parquet':
+        frame.to_parquet(output_name, index=False)
+    else:
+        raise ValueError('unknown output_type %s', output_type)
 
     logger.info('Exported to %s!', output_name)

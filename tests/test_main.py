@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+from typing import List
 from unittest.mock import ANY, Mock, call, patch
 
 import pandas as pd
@@ -85,8 +86,8 @@ def test_main(
         mock_collector: Mock,
         mock_live: Mock,
         mock_spinner: Mock,
-        params: list[str],
-        expected_collect_params: list,
+        params: List[str],
+        expected_collect_params: List,
         collect_response: pd.DataFrame,
         expected_output_type: str,
     ) -> None:

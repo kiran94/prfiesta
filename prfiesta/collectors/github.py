@@ -1,5 +1,6 @@
 import logging
 from datetime import datetime
+from typing import List, Optional
 
 import pandas as pd
 from github import Github
@@ -48,7 +49,7 @@ class GitHubCollector:
         ]
 
 
-    def collect(self, users: list[str], after: datetime | None= None, before: datetime | None = None) -> pd.DataFrame:
+    def collect(self, users: List[str], after: Optional[datetime] = None, before: Optional[datetime] = None) -> pd.DataFrame:
 
         query = self._construct_query(users, after, before)
 
@@ -76,7 +77,7 @@ class GitHubCollector:
 
 
     @staticmethod
-    def _construct_query(users: list[str], after: datetime | None= None, before: datetime | None = None) -> str:
+    def _construct_query(users: List[str], after: Optional[datetime] = None, before: Optional[datetime] = None) -> str:
         """
         Constructs a GitHub Search Query
         that returns pull requests made by the passed users.
@@ -90,7 +91,7 @@ class GitHubCollector:
         All dates are inclusive.
         See GitHub Docs for full optons https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests
         """
-        query: list[str] = []
+        query: List[str] = []
 
         query.append('type:pr')
 

@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import List
 from unittest.mock import Mock, call, patch
 
 import pytest
@@ -93,7 +94,7 @@ _mock_issue2.__dict__ = {
 def test_collect(
         mock_github: Mock,
         collect_params: dict,
-        github_issues: list[Mock],
+        github_issues: List[Mock],
         expected_github_query: str,
     ) -> None:
 
