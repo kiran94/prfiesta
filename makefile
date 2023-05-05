@@ -15,7 +15,7 @@ coverage:
 	python -m pytest -q --cov=prfiesta --cov-report=xml  # for sonarqube
 
 export_requirements:
-	poetry run pip freeze > requirements.txt
+	poetry export --with dev --output requirements.txt
 
 clean:
 	rm ./coverage.xml
