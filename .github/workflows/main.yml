@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
-      # issues: write
       contents: read
       pull-requests: write
     strategy:
@@ -53,6 +52,7 @@ jobs:
         with:
           lcov-file: coverage.lcov
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          title: "Python ${{ matrix.python-version }}, Poetry ${{ matrix.poetry-version }}"
 
   terraform-lint:
     runs-on: ubuntu-latest
