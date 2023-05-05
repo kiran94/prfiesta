@@ -34,7 +34,7 @@ def main(**kwargs) -> None:
     before: datetime = kwargs.get('before')
     after: datetime = kwargs.get('after')
 
-    logger.info('[bold green]Pull Request Fiesta 🦜🥳')
+    logger.info('[bold green]PR Fiesta 🦜🥳')
 
     spinner = Spinner('dots', text=Text('Loading', style=SPINNER_STYLE))
 
