@@ -52,33 +52,41 @@ _mock_issue2.__dict__ = {
 }
 
 
-
-
 @pytest.mark.parametrize(('collect_params', 'github_issues', 'expected_github_query'), [
+    pytest.param
     (
         {'users': ['user1', 'user2']},
         [],
         None,
+        id='no_results',
     ),
+    pytest.param
     (
         {'users': ['user1', 'user2']},
         [ _mock_issue1, _mock_issue2 ],
         'type:pr author:user1 author:user2',
+        id='users_returned_results',
     ),
+    pytest.param
     (
         {'users': ['user1', 'user2'], 'after': datetime(2009, 1, 1)},
         [ _mock_issue1, _mock_issue2 ],
         'type:pr author:user1 author:user2 updated:>=2009-01-01',
+        id='after_returned_results',
     ),
+    pytest.param
     (
         {'users': ['user1', 'user2'], 'before': datetime(2009, 1, 1)},
         [ _mock_issue1, _mock_issue2 ],
         'type:pr author:user1 author:user2 updated:<=2009-01-01',
+        id='before_returned_resutls',
     ),
+    pytest.param
     (
         {'users': ['user1', 'user2'], 'after': datetime(2009, 1, 1),  'before': datetime(2010, 1, 1)},
         [ _mock_issue1, _mock_issue2 ],
         'type:pr author:user1 author:user2 updated:2009-01-01..2010-01-01',
+        id='before_and_after_returned_results',
     ),
 ])
 @patch('prfiesta.collectors.github.Github')

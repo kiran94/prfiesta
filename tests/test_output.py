@@ -7,10 +7,10 @@ from prfiesta.output import output_frame
 
 
 @pytest.mark.parametrize(('output_type', 'timestamp'), [
-    ('csv', datetime(2021, 1, 1)),
-    ('parquet', datetime(2021, 1, 1)),
-    ('csv', None),
-    ('parquet', None),
+    pytest.param('csv', datetime(2021, 1, 1), id='csv_with_timestamp'),
+    pytest.param('parquet', datetime(2021, 1, 1), id='parquet_with_timestamp'),
+    pytest.param('csv', None, id='csv_without_timestamp'),
+    pytest.param('parquet', None, id='parquet_without_timestamp'),
 ])
 def test_output_frame(output_type: str, timestamp: datetime) -> None:
 
