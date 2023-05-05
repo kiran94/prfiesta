@@ -89,6 +89,6 @@ def test_main(
     assert mock_collector.return_value.collect.call_args_list == expected_collect_params
 
     if not collect_response.empty:
-        assert mock_output_frame.call_args_list == [call(collect_response, expected_output_type, spinner=mock_spinner.return_value)]
+        assert mock_output_frame.call_args_list == [call(collect_response, expected_output_type, spinner=mock_spinner.return_value, output_name=None)]
 
     assert result.exit_code == 0
