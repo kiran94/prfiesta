@@ -4,10 +4,7 @@ test:
 	python -m pytest -vv
 
 lint:
-	python -m ruff check .
-
-lint_ci:
-	python -m ruff check --format github .
+	python -m ruff check $(if $(GITHUB_ACTIONS),--format github,) .
 
 format:
 	python -m ruff check --fix .
