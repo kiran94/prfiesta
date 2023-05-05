@@ -219,3 +219,6 @@ terraform.rc
 
 requirements.txt
 requirements-dev.txt
+
+*.csv
+*.parquet
