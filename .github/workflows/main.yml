@@ -10,6 +10,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      # issues: write
+      contents: read
+      pull-requests: write
     strategy:
       fail-fast: false
       matrix:
@@ -46,8 +50,6 @@ jobs:
 
       - name: Code Coverage Report
         uses: romeovs/lcov-reporter-action@v0.2.16
-        permissions:
-          issues: write
         with:
           lcov-file: coverage.lcov
           github-token: ${{ secrets.GITHUB_TOKEN }}
