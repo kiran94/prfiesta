@@ -53,7 +53,6 @@ jobs:
         with:
           lcov-file: coverage.lcov
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          # title: "Python ${{ matrix.python-version }}, Poetry ${{ matrix.poetry-version }}"
           delete-old-comments: true
 
   terraform-lint:
