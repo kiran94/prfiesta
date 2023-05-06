@@ -5,7 +5,7 @@ from typing import Literal
 import pandas as pd
 from rich.spinner import Spinner
 
-from prfiesta import SPINNER_STYLE
+from prfiesta.spinner import update_spinner
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +25,7 @@ def output_frame(
 
         output_name = f"export.{timestamp.strftime('%Y-%m-%d_%H:%M:%S')}.{output_type}"
 
-    spinner.update(text=f'Writing export to {output_name}', style=SPINNER_STYLE)
+    update_spinner(f'Writing export to {output_name}', spinner, logger)
 
     if output_type == 'csv':
         frame.to_csv(output_name, index=False)

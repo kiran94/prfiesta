@@ -6,8 +6,8 @@ import pandas as pd
 from github import Github
 from rich.spinner import Spinner
 
-from prfiesta import SPINNER_STYLE
 from prfiesta.environment import GitHubEnvironment
+from prfiesta.spinner import update_spinner
 
 logger = logging.getLogger(__name__)
 
@@ -53,7 +53,8 @@ class GitHubCollector:
 
         query = self._construct_query(users, after, before)
 
-        self._update_spinner(f'Searching {self._url} with[bold blue] {query}')
+        update_spinner(f'Searching {self._url} with[bold blue] {query}', self._spinner,  logger)
+
         pulls = self._github.search_issues(query=query)
 
         pull_request_data: list[dict] = []
@@ -64,7 +65,7 @@ class GitHubCollector:
             logger.warning('Did not find any results for this search criteria!')
             return pd.DataFrame()
 
-        self._update_spinner('Post Processing')
+        update_spinner('Post Processing', self._spinner, logger)
         pr_frame = pd.json_normalize(pull_request_data)
 
         pr_frame = pr_frame.drop(columns=self._drop_columns, errors='ignore')
@@ -118,11 +119,6 @@ class GitHubCollector:
         for col in self._datetime_columns:
             df[col] = pd.to_datetime(df[col], errors='ignore')
         return df
-
-
-    def _update_spinner(self, message: str, style: str=SPINNER_STYLE) -> None:
-        if self._spinner:
-            self._spinner.update(text=message, style=style)
 
 
 
