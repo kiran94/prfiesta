@@ -45,6 +45,7 @@ jobs:
         run: make test
 
       - name: Code Coverage
+        if: matrix.python-version == '3.x'
         run: make coverage
 
       - name: Code Coverage Report
@@ -53,7 +54,6 @@ jobs:
         with:
           lcov-file: coverage.lcov
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          delete-old-comments: true
 
   terraform-lint:
     runs-on: ubuntu-latest
