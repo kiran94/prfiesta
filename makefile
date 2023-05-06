@@ -12,7 +12,12 @@ format:
 coverage:
 	python -m pytest -q --cov=prfiesta --cov-report=term # for local
 	python -m pytest -q --cov=prfiesta --cov-report=html # for local
-	python -m pytest -q --cov=prfiesta --cov-report=xml  # for sonarqube
+
+	# for sonarqube
+	$(if $(GITHUB_ACTIONS),python -m pytest -q --cov=prfiesta --cov-report=xml,)
+
+	# for github action
+	$(if $(GITHUB_ACTIONS),python -m pytest -q --cov=prfiesta --cov-report=lcov,)
 
 export_requirements:
 	poetry export --with dev --output requirements.txt
