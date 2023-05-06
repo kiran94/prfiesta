@@ -45,11 +45,11 @@ jobs:
         run: make test
 
       - name: Code Coverage
-        if: matrix.python-version == '3.x' && github.ref == 'refs/heads/main'
+        if: matrix.python-version == '3.x' && github.ref != 'refs/heads/main'
         run: make coverage
 
       - name: Code Coverage Report
-        if: matrix.python-version == '3.x' && github.ref == 'refs/heads/main'
+        if: matrix.python-version == '3.x' && github.ref != 'refs/heads/main'
         uses: romeovs/lcov-reporter-action@v0.2.16
         with:
           lcov-file: coverage.lcov
