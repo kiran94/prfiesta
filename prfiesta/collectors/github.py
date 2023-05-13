@@ -25,27 +25,22 @@ class GitHubCollector:
 
         self._sort_column = ['updated_at']
         self._drop_columns = [
-            'labels_url',
-            'comments_url',
-            'events_url',
             'node_id',
             'performed_via_github_app',
-            'active_lock_reason',
         ]
         self._move_to_end_columns = [
             'url',
             'repository_url',
             'html_url',
             'timeline_url',
+            'labels_url',
+            'comments_url',
+            'events_url',
         ]
         self._datetime_columns = [
             'created_at',
             'updated_at',
             'closed_at',
-            'milestone.created_at',
-            'milestone.updated_at',
-            'milestone.due_on',
-            'milestone.closed_at',
         ]
 
 
