@@ -41,7 +41,7 @@ def main(**kwargs) -> None:
     with Live(spinner, refresh_per_second=20, transient=True):
 
         collector = GitHubCollector(token=token, url=url, spinner=spinner)
-        pr_frame = collector.collect(users, after=after, before=before)
+        pr_frame = collector.collect(*users, after=after, before=before)
 
         logger.info('Found [bold green]%s[/bold green] pull requests!', pr_frame.shape[0])
 

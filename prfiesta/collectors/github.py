@@ -1,6 +1,6 @@
 import logging
 from datetime import datetime
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 import pandas as pd
 from github import Github
@@ -44,7 +44,7 @@ class GitHubCollector:
         ]
 
 
-    def collect(self, users: List[str], after: Optional[datetime] = None, before: Optional[datetime] = None) -> pd.DataFrame:
+    def collect(self, *users: Tuple[str], after: Optional[datetime] = None, before: Optional[datetime] = None) -> pd.DataFrame:
 
         query = self._construct_query(users, after, before)
 
