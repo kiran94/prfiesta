@@ -121,7 +121,7 @@ def test_collect(
     assert mock_github.return_value.search_issues.call_args_list == [call(query=expected_github_query)]
 
     # Ensure the rows and columns came as expected
-    assert returned.shape == (2, 12)
+    assert returned.shape == (2, 16)
 
     # Ensure none of the drop columns came through
     assert not set(gc._drop_columns).intersection(set(returned.columns.tolist()))
