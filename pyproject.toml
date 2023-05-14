@@ -26,6 +26,16 @@ pytest = "^7.3.1"
 pytest-cov = "^4.0.0"
 pytest-github-actions-annotate-failures = "^0.2.0"
 
+
+[tool.poetry.group.analysis.dependencies]
+natural = "^0.2.0"
+jupyterlab = "^3.6.3"
+jupyter-black = "^0.3.4"
+seaborn = "^0.12.2"
+matplotlib = "^3.7.1"
+ipywidgets = "^8.0.6"
+jupyterlab-widgets = "^3.0.7"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
