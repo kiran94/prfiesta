@@ -5,10 +5,11 @@ from unittest.mock import ANY, Mock, call, patch
 import pandas as pd
 import pytest
 
-from prfiesta.analysis.plot import _months, plot_overall_timeline, plot_state_distribution
+from prfiesta.analysis.plot import _months, plot_author_associations, plot_overall_timeline, plot_state_distribution
 
 _mock_state_distribution_axis = Mock()
 _mock_overall_timeline_axis = Mock()
+_mock_author_association_axis = Mock()
 
 
 @pytest.mark.parametrize(('options', 'expected_options'), [
@@ -105,4 +106,38 @@ def test_plot_overall_timeline(mock_seaborn: Mock, options: Dict, expected_optio
     _mock_overall_timeline_axis.reset_mock()
 
 
+@pytest.mark.parametrize(('options', 'expected_options'), [
+   pytest.param(
+        {},
+        {'ax': None, 'title': 'Author Associations', 'legend': True, 'colormap': None},
+        id='default',
+    ),
+   pytest.param(
+        {'ax': _mock_author_association_axis},
+        {'ax': _mock_author_association_axis, 'title': 'Author Associations', 'legend': True, 'colormap': None},
+        id='with_custom_axis',
+    ),
+   pytest.param(
+        {'title': 'my_custom_title'},
+        {'ax': None, 'title': 'my_custom_title', 'legend': True, 'colormap': None},
+        id='with_custom_title',
+    ),
+   pytest.param(
+        {'palette': 'my_colors'},
+        {'ax': None, 'title': 'Author Associations', 'legend': True, 'colormap': 'my_colors'},
+        id='with_custom_pallete',
+    ),
+])
+def test_plot_author_associations(options: Dict, expected_options: Dict) -> None:
 
+    agg_mock = Mock()
+
+    data = Mock()
+    data.groupby = Mock(return_value = {'id': Mock()})
+    data.groupby.return_value['id'] = agg_mock
+
+    plot_author_associations(data, **options)
+
+    assert data.groupby.called
+    assert agg_mock.count.called
+    assert agg_mock.count.return_value.plot.pie.call_args_list == [call(**expected_options)]

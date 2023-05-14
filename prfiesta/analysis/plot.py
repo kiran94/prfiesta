@@ -56,3 +56,14 @@ def plot_overall_timeline(data: pd.DataFrame, **kwargs) -> Union[plt.Figure, plt
 
     return p
 
+def plot_author_associations(data: pd.DataFrame, **kwargs) -> Union[plt.Figure, plt.Axes, pd.DataFrame]:
+
+    ax: Optional[Axes] = kwargs.get('ax')
+    palette: Optional[str] = kwargs.get('palette')
+    title: Optional[str] = kwargs.get('title', 'Author Associations')
+
+    temp = data.groupby('author_association')['id'].count()
+    temp.name = 'count'
+
+    return temp.plot.pie(ax=ax, title=title, legend=True, colormap=palette)
+
