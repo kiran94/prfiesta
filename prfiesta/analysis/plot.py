@@ -11,7 +11,6 @@ logger = logging.getLogger(__name__)
 
 _months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
-
 def plot_state_distribution(data: pd.DataFrame, **kwargs) -> Union[plt.Figure, plt.Axes, pd.DataFrame]:
 
     ax: Optional[Axes] = kwargs.get('ax')
@@ -66,4 +65,36 @@ def plot_author_associations(data: pd.DataFrame, **kwargs) -> Union[plt.Figure, 
     temp.name = 'count'
 
     return temp.plot.pie(ax=ax, title=title, legend=True, colormap=palette)
+
+def plot_conventional_commit_breakdown(data: pd.DataFrame, **kwargs) -> Union[plt.Figure, plt.Axes, pd.DataFrame]:
+
+    ax: Optional[Axes] = kwargs.get('ax')
+    palette: Optional[str] = kwargs.get('palette')
+    title: Optional[str] = kwargs.get('title', 'Conventional Commit Breakdown')
+    hue: Optional[str] = kwargs.get('hue', 'type')
+
+    conventional_commit_frame = data['title'] \
+        .str \
+        .extract(r'^(?P<type>feat|fix|docs|style|refactor|test|chore|build|ci|perf)(\((?P<scope>[A-Za-z-]+)\))?: (?P<subject>[^\n]+)$').copy()
+
+    conventional_commit_frame = conventional_commit_frame.drop(columns=[1, 'subject'])
+    conventional_commit_frame = pd.concat([conventional_commit_frame, data['repository_name']], axis=1)
+    conventional_commit_frame = conventional_commit_frame.dropna(subset=['type'])
+
+    if conventional_commit_frame.empty:
+        logger.warning('passed data did not seem to have any conventional commits')
+        return None
+
+    type_count = conventional_commit_frame.groupby(['type', 'repository_name']).count().reset_index()
+    type_count = type_count[type_count['scope'] != 0]
+    type_count = type_count.sort_values(by='scope', ascending=False)
+    type_count = type_count.rename(columns={'scope': 'count'})
+
+    p = sns.barplot(type_count, y='repository_name', x='count', hue=hue, ax=ax, palette=palette)
+
+    if ax:
+        ax.set_title(title)
+        ax.legend(loc='upper right')
+
+    return p
 
