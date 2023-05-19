@@ -22,6 +22,12 @@ coverage:
 export_requirements:
 	poetry export --with dev --output requirements.txt
 
+precommit_install:
+	pre-commit install
+
+precommit_run:
+	pre-commit run --all-files
+
 clean:
 	rm ./coverage.xml
 	rm -rf ./htmlcov
