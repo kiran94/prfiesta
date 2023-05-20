@@ -4,6 +4,7 @@ from typing import List, Optional, Tuple
 
 import pandas as pd
 from github import Github
+from github.GithubException import RateLimitExceededException
 from rich.spinner import Spinner
 
 from prfiesta.environment import GitHubEnvironment
@@ -50,11 +51,18 @@ class GitHubCollector:
 
         update_spinner(f'Searching {self._url} with[bold blue] {query}', self._spinner,  logger)
 
-        pulls = self._github.search_issues(query=query)
+        pull_request_data = None
+        try:
+            pulls = self._github.search_issues(query=query)
 
-        pull_request_data: list[dict] = []
-        for pr in pulls:
-            pull_request_data.append(pr.__dict__['_rawData'])
+            pull_request_data: list[dict] = []
+            for pr in pulls:
+                pull_request_data.append(pr.__dict__['_rawData'])
+
+        except RateLimitExceededException as e:
+            logger.warning('🙇 You were rate limited by the GitHub API, try requesting less data.')
+            logger.debug(e)
+            return pd.DataFrame()
 
         if not pull_request_data:
             logger.warning('Did not find any results for this search criteria!')

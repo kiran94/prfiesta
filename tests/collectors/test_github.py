@@ -3,6 +3,7 @@ from typing import List, Tuple
 from unittest.mock import Mock, call, patch
 
 import pytest
+from github.GithubException import RateLimitExceededException
 
 from prfiesta.collectors.github import GitHubCollector
 
@@ -141,3 +142,20 @@ def test_collect(
     # Ensure all the datetime columns were converted
     for col in returned[gc._datetime_columns].columns.tolist():
         assert str(returned[col].dtype) == 'datetime64[ns]', f'{col} was not a datetime column'
+
+
+@patch('prfiesta.collectors.github.Github')
+def test_collect_rate_limit(mock_github: Mock) -> None:
+    mock_github.return_value.search_issues.side_effect = RateLimitExceededException(429, {}, {})
+
+    spinner_mock = Mock()
+    collector_params = {
+        'token': 'dummy_token',
+        'url': 'dummy_url',
+        'spinner': spinner_mock,
+    }
+
+    gc = GitHubCollector(**collector_params)
+    result = gc.collect('user')
+
+    assert result.empty
