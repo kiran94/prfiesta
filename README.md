@@ -76,7 +76,10 @@ You can also customize the output file name using the `--output` option.
 
 ### Using GitHub Enterprise
 
-TODO
+If you trying to fetch data from a [GitHub Enterprise](https://docs.github.com/en/enterprise-cloud@latest/rest/enterprise-admin?apiVersion=2022-11-28) server, then much of the same functionality should work the same. You just need to make sure that:
+
+- `GH_HOST` is set to your enterprise instance's API URL. Reach out to your internal GitHub team if you are not sure what this should be.
+- `GITHUB_ENTERPRISE_TOKEN` a [personal access token](https://docs.github.com/en/enterprise-cloud@latest/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) generated on your GitHub Enterprise instance.
 
 ## Environment Variables
 
