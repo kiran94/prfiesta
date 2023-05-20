@@ -20,6 +20,7 @@ rich = "^13.3.5"
 seaborn = "^0.12.2"
 matplotlib = "^3.7.1"
 natural = "^0.2.0"
+urllib3 = "<2"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.0.263"
