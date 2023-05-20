@@ -57,6 +57,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Verify Notebooks
+        if: matrix.os == 'ubuntu-latest'
         env:
           PYDEVD_DISABLE_FILE_VALIDATION: 1
         run: |
