@@ -98,3 +98,31 @@ def plot_conventional_commit_breakdown(data: pd.DataFrame, **kwargs) -> Union[pl
 
     return p
 
+def plot_reactions(data: pd.DataFrame, **kwargs) -> Union[plt.Figure, plt.Axes, pd.DataFrame]:
+
+    ax: Optional[Axes] = kwargs.get('ax')
+    palette: Optional[str] = kwargs.get('palette')
+    title: Optional[str] = kwargs.get('title', 'Reactions')
+    hue: Optional[str] = kwargs.get('hue')
+    threshold: Optional[int] = kwargs.get('threshold')
+
+    reaction_columns = [x for x in data.columns.tolist() if x.startswith('reactions.') and x not in ['reactions.url']]
+
+    reaction_df = data[reaction_columns]
+    reaction_df = reaction_df[reaction_df['reactions.total_count'] > 0]
+    reaction_df = reaction_df.drop(columns=['reactions.total_count'])
+
+    if reaction_df.empty:
+        logger.warning('passed data did not seem to have any reactions 🙁')
+        return None
+
+    if threshold:
+        reaction_df = reaction_df[reaction_df < threshold]
+
+    p = sns.scatterplot(reaction_df, ax=ax, palette=palette, hue=hue)
+
+    if ax:
+        ax.set_title(title)
+        ax.legend(loc='upper right')
+
+    return p
