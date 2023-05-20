@@ -57,6 +57,8 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Verify Notebooks
+        env:
+          PYDEVD_DISABLE_FILE_VALIDATION: 1
         run: |
           poetry build
           make validate_notebooks
