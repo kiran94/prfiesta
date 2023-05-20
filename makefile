@@ -28,6 +28,10 @@ precommit_install:
 precommit_run:
 	pre-commit run --all-files
 
+validate_notebooks:
+	poetry run bash ./notebooks/scripts/run_all.sh './notebooks/plots/*.ipynb' 'notebooks/plots'
+	poetry run bash ./notebooks/scripts/run_all.sh './notebooks/views/*.ipynb' 'notebooks/views'
+
 clean:
 	rm ./coverage.xml
 	rm -rf ./htmlcov

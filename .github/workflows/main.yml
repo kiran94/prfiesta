@@ -56,6 +56,15 @@ jobs:
           lcov-file: coverage.lcov
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Verify Notebooks
+        if: matrix.os == 'ubuntu-latest'
+        env:
+          PYDEVD_DISABLE_FILE_VALIDATION: 1
+        run: |
+          poetry build
+          poetry install
+          make validate_notebooks
+
   terraform-lint:
     runs-on: ubuntu-latest
     timeout-minutes: 10

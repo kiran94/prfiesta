@@ -222,5 +222,6 @@ requirements-dev.txt
 
 *.csv
 *.parquet
+!notebooks/samples_data/*.parquet
 
 coverage.lcov
