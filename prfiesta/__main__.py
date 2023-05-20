@@ -43,12 +43,11 @@ def main(**kwargs) -> None:
         collector = GitHubCollector(token=token, url=url, spinner=spinner)
         pr_frame = collector.collect(*users, after=after, before=before)
 
-        logger.info('Found [bold green]%s[/bold green] pull requests!', pr_frame.shape[0])
-
         if not pr_frame.empty:
-            output_frame(pr_frame, output_type, spinner=spinner, output_name=output)
+            logger.info('Found [bold green]%s[/bold green] pull requests!', pr_frame.shape[0])
 
-        logger.info('Time to analyze 🔎 See https://github.com/kiran94/prfiesta/blob/main/docs/analysis.md for some inspiration!')
+            output_frame(pr_frame, output_type, spinner=spinner, output_name=output)
+            logger.info('Time to analyze 🔎 See https://github.com/kiran94/prfiesta/blob/main/docs/analysis.md for some inspiration!')
 
 if __name__ == '__main__':  # pragma: nocover
     main()
