@@ -28,6 +28,10 @@ precommit_install:
 precommit_run:
 	pre-commit run --all-files
 
+validate_notebooks:
+	cd ./notebooks/plots/ && ./run_all.sh
+	cd ./notebooks/views/ && ./run_all.sh
+
 clean:
 	rm ./coverage.xml
 	rm -rf ./htmlcov
