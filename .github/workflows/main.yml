@@ -57,7 +57,9 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Verify Notebooks
-        run: make validate_notebooks
+        run: |
+          poetry build
+          make validate_notebooks
 
   terraform-lint:
     runs-on: ubuntu-latest
