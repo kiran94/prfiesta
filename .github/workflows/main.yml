@@ -58,7 +58,6 @@ jobs:
 
       - name: Verify Notebooks
         run: |
-          poetry shell
           poetry build
           make validate_notebooks
 
