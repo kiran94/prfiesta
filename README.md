@@ -74,7 +74,7 @@ You can also customize the output file name using the `--output` option.
 
 `prfiesta` ships with built in plots to help analyze your pull request data. These serve as a starting point in your analysis. See more information on the build in plots and views [here](./docs/analysis.md).
 
-### Using GitHub Enterprise
+## Using GitHub Enterprise
 
 If you trying to fetch data from a [GitHub Enterprise](https://docs.github.com/en/enterprise-cloud@latest/rest/enterprise-admin?apiVersion=2022-11-28) server, then much of the same functionality should work the same. You just need to make sure that:
 
