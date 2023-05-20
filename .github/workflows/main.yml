@@ -56,6 +56,9 @@ jobs:
           lcov-file: coverage.lcov
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Verify Notebooks
+        run: make validate_notebooks
+
   terraform-lint:
     runs-on: ubuntu-latest
     timeout-minutes: 10
