@@ -148,7 +148,14 @@ def test_collect(
 def test_collect_rate_limit(mock_github: Mock) -> None:
     mock_github.return_value.search_issues.side_effect = RateLimitExceededException(429, {}, {})
 
-    gc = GitHubCollector()
+    spinner_mock = Mock()
+    collector_params = {
+        'token': 'dummy_token',
+        'url': 'dummy_url',
+        'spinner': spinner_mock,
+    }
+
+    gc = GitHubCollector(**collector_params)
     result = gc.collect('user')
 
     assert result.empty
