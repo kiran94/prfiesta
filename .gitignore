@@ -225,3 +225,7 @@ requirements-dev.txt
 !notebooks/samples_data/*.parquet
 
 coverage.lcov
+
+# Semantic Release Artifacts
+.generated-go-semantic-release-changelog.md
+.semrel/

@@ -89,9 +89,24 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v3
+      - uses: abatilo/actions-poetry@v2
+
       - name: Release
+        id: release
         uses: go-semantic-release/action@v1
         if: github.ref == 'refs/heads/main'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           allow-initial-development-versions: true
+
+      - name: Bump Poetry
+        if: github.ref == 'refs/heads/main' && steps.release.outputs.version != ''
+        run: poetry version ${{ steps.release.outputs.version }}
+
+      - uses: EndBug/add-and-commit@v9
+        if: github.ref == 'refs/heads/main' && steps.release.outputs.version != ''
+        with:
+          message: "chore(version): bump"
+          default_author: github_actions
+          add: pyproject.toml
