@@ -166,7 +166,13 @@ def test_collect_custom_drop_columns(mock_github: Mock) -> None:
 
     mock_github.return_value.search_issues.return_value = [_mock_issue1]
 
-    gc = GitHubCollector(drop_columns=['comments_url'])
+    collector_params = {
+        'token': 'dummy_token',
+        'url': 'dummy_url',
+        'drop_columns': ['comments_url'],
+    }
+
+    gc = GitHubCollector(**collector_params)
     result = gc.collect('user1')
 
     columns = result.columns.tolist()
