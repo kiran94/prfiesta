@@ -159,3 +159,20 @@ def test_collect_rate_limit(mock_github: Mock) -> None:
     result = gc.collect('user')
 
     assert result.empty
+
+
+@patch('prfiesta.collectors.github.Github')
+def test_collect_custom_drop_columns(mock_github: Mock) -> None:
+
+    mock_github.return_value.search_issues.return_value = [_mock_issue1]
+
+    gc = GitHubCollector(drop_columns=['comments_url'])
+    result = gc.collect('user1')
+
+    columns = result.columns.tolist()
+    assert 'comments_url' not in columns
+
+    # These are default drop columns
+    # Since we are overriding it in this scenario, they should still exist in the output column
+    assert 'node_id' in columns
+    assert 'performed_via_github_app' in columns
