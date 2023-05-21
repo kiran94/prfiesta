@@ -25,10 +25,8 @@ class GitHubCollector:
         self._spinner: Spinner = kwargs.get('spinner')
 
         self._sort_column = ['updated_at']
-        self._drop_columns = [
-            'node_id',
-            'performed_via_github_app',
-        ]
+        self._drop_columns = kwargs.get('drop_columns') or ['node_id', 'performed_via_github_app']
+
         self._move_to_end_columns = [
             'url',
             'repository_url',
