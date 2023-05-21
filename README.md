@@ -42,6 +42,9 @@ prfiesta -u kiran94 --output_type parquet --output my_pull_requests.parquet
 # Get all pull requests for more then one user
 prfiesta -u kiran94 -u user2
 
+# Get all pull requests and drop specific columns from the output
+prfiesta -u kiran94 -dc events_url -dc comments_url -dc node_id
+
 # Get help
 prfiesta --help
 ```
