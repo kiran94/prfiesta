@@ -25,10 +25,8 @@ class GitHubCollector:
         self._spinner: Spinner = kwargs.get('spinner')
 
         self._sort_column = ['updated_at']
-        self._drop_columns = [
-            'node_id',
-            'performed_via_github_app',
-        ]
+        self._drop_columns = kwargs.get('drop_columns') or ['node_id', 'performed_via_github_app']
+
         self._move_to_end_columns = [
             'url',
             'repository_url',
@@ -113,8 +111,13 @@ class GitHubCollector:
 
     def _move_column_to_end(self, df: pd.DataFrame) -> pd.DataFrame:
         for col in self._move_to_end_columns:
-            df.insert(len(df.columns)-1, col, df.pop(col))
-            df.drop(columns=col)
+            try:
+                df.insert(len(df.columns)-1, col, df.pop(col))
+                df.drop(columns=col)
+            except KeyError:
+                # This can happen if the user provides a custom _drop_columns which
+                # removes the column before we can move it to the end
+                logger.debug('Attempted to move column %s but it did not exist', col)
 
         return df
 

@@ -22,6 +22,7 @@ github_environment = GitHubEnvironment()
 @click.option('-x', '--url', help='The URL of the Git provider to use')
 @click.option('-o', '--output', default=None, help='The output location')
 @click.option('-ot', '--output_type', type=click.Choice(['csv', 'parquet']), default='csv', help='The output format')
+@click.option('-dc', '--drop_columns', multiple=True, help='Drop columns from the output dataframe')
 @click.option('--after', type=click.DateTime(formats=['%Y-%m-%d']), help='Only search for pull requests after this date e.g 2023-01-01')
 @click.option('--before', type=click.DateTime(formats=['%Y-%m-%d']), help='Only search for pull requests before this date e.g 2023-04-30')
 def main(**kwargs) -> None:
@@ -33,6 +34,7 @@ def main(**kwargs) -> None:
     output_type: str = kwargs.get('output_type')
     before: datetime = kwargs.get('before')
     after: datetime = kwargs.get('after')
+    drop_columns: list[str] = list(kwargs.get('drop_columns'))
 
     logger.info('[bold green]PR Fiesta 🦜🥳')
 
@@ -40,7 +42,7 @@ def main(**kwargs) -> None:
 
     with Live(spinner, refresh_per_second=20, transient=True):
 
-        collector = GitHubCollector(token=token, url=url, spinner=spinner)
+        collector = GitHubCollector(token=token, url=url, spinner=spinner, drop_columns=drop_columns)
         pr_frame = collector.collect(*users, after=after, before=before)
 
         if not pr_frame.empty:
