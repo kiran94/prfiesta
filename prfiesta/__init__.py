@@ -1,7 +1,10 @@
+import importlib.metadata
 import logging
 import os
 
 from rich.logging import RichHandler
+
+__version__ = importlib.metadata.version(__name__)
 
 LOGGING_LEVEL=os.environ.get('LOGGING_LEVEL', logging.INFO)
 LOGGING_FORMAT=os.environ.get('LOGGING_FORMAT', '%(message)s')
