@@ -11,3 +11,11 @@ repos:
     rev: "v0.0.267"
     hooks:
       - id: ruff
+  - repo: https://github.com/python-poetry/poetry
+    rev: "1.5.0"
+    hooks:
+      - id: poetry-check
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: "v1.79.1"
+    hooks:
+      - id: terraform_fmt
