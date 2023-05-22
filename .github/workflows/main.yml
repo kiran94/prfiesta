@@ -108,8 +108,7 @@ jobs:
         if: github.ref == 'refs/heads/main' && steps.release.outputs.version != ''
         run: |
           poetry build
-          poetry config repositories.testpypi https://test.pypi.org/legacy/ # TODO: We don't need this line when we redirect to real pypi
-          poetry publish --repository=testpypi -u __token__ -p $POETRY_PYPI_TOKEN_PYPI # TODO: Remove the --repostory when we redirect to real pypi
+          poetry publish -u __token__ -p $POETRY_PYPI_TOKEN_PYPI
         env:
           POETRY_PYPI_TOKEN_PYPI: ${{ secrets.POETRY_PYPI_TOKEN_PYPI }}
 
