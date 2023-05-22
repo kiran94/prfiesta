@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/kiran94/prfiesta"
 repository = "https://github.com/kiran94/prfiesta"
-documentation = "https://github.com/kiran94/prfiesta/README.md"
+documentation = "https://github.com/kiran94/prfiesta/blob/main/README.md"
 keywords = [ "pull-request", "pull-request-review", "performance-review" ]
 
 [tool.poetry.dependencies]
