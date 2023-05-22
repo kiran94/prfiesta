@@ -27,11 +27,14 @@ export GITHUB_TOKEN=... # or GITHUB_ENTERPRISE_TOKEN
 # Get all pull requests for a user
 prfiesta -u kiran94
 
-# Get all pull requests for a user after a date
+# Get all pull requests for a user created after a date
 prfiesta -u kiran94 --after 2023-01-01
 
-# Get all pull requests for a user between two dates
+# Get all pull requests for a user created between two dates
 prfiesta -u kiran94 --after 2023-01-01 --before 2023-06-01
+
+# Get all pull requests for a user updated after a date
+prfiesta -u kiran94 --after 2023-01-01 --use_updated
 
 # Get all pull requests with a custom output file name
 prfiesta -u kiran94 --output my_pull_requests.csv
@@ -71,6 +74,12 @@ You can control the output type using the `--output_type` option. Supported opti
 - `parquet`
 
 You can also customize the output file name using the `--output` option.
+
+### Time Filter
+
+When using the `--after` and `--before` date filters, by default `prfiesta` will use the `created` time dimension with these filters on the Git provider (e.g GitHub). This may not fit your use case and you may want to filter on when a pull request was updated instead. To do this you can use the `--use_updated` flag.
+
+See more information in [here](https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests#search-by-when-an-issue-or-pull-request-was-created-or-last-updated).
 
 ## Analysis
 
