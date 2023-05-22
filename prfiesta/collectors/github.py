@@ -109,6 +109,8 @@ class GitHubCollector:
         if use_updated:
             time_filter = 'updated'
 
+        logger.debug('using time filter %s', time_filter)
+
         if before and after:
             query.append(f"{time_filter}:{after.strftime('%Y-%m-%d')}..{before.strftime('%Y-%m-%d')}")
         elif before:
