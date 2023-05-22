@@ -52,10 +52,9 @@ prfiesta --help
 You can also leverage `prfiesta` directly in your own application:
 
 ```python
-from datetime import datetime
-
 import pandas as pd
 
+from datetime import datetime
 from prfiesta.collectors.github import GitHubCollector
 
 github = GitHubCollector()
