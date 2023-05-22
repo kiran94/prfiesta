@@ -6,7 +6,7 @@ from rich.live import Live
 from rich.spinner import Spinner
 from rich.text import Text
 
-from prfiesta import SPINNER_STYLE
+from prfiesta import SPINNER_STYLE, __version__
 from prfiesta.collectors.github import GitHubCollector
 from prfiesta.environment import GitHubEnvironment
 from prfiesta.output import output_frame
@@ -25,6 +25,7 @@ github_environment = GitHubEnvironment()
 @click.option('-dc', '--drop_columns', multiple=True, help='Drop columns from the output dataframe')
 @click.option('--after', type=click.DateTime(formats=['%Y-%m-%d']), help='Only search for pull requests after this date e.g 2023-01-01')
 @click.option('--before', type=click.DateTime(formats=['%Y-%m-%d']), help='Only search for pull requests before this date e.g 2023-04-30')
+@click.version_option(__version__)
 def main(**kwargs) -> None:
 
     users: tuple[str] = kwargs.get('users')
