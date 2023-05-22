@@ -1,6 +1,6 @@
 # prfiesta 🦜🥳
 
-[![main](https://github.com/kiran94/prfiesta/actions/workflows/main.yml/badge.svg)](https://github.com/kiran94/prfiesta/actions/workflows/main.yml) ![GitHub](https://img.shields.io/github/license/kiran94/prfiesta)
+[![main](https://github.com/kiran94/prfiesta/actions/workflows/main.yml/badge.svg)](https://github.com/kiran94/prfiesta/actions/workflows/main.yml) ![GitHub](https://img.shields.io/github/license/kiran94/prfiesta) [![PyPI](https://img.shields.io/pypi/v/prfiesta)](https://pypi.org/project/prfiesta/)
 
 > Collect and Analyze Individual Contributor Pull Requests
 
@@ -10,8 +10,8 @@ It can be used by engineers or managers to gain insights into all the great work
 
 ## Install
 
-```
-TODO
+```bash
+python -m pip install prfiesta
 ```
 
 Dependencies:
@@ -52,10 +52,9 @@ prfiesta --help
 You can also leverage `prfiesta` directly in your own application:
 
 ```python
-from datetime import datetime
-
 import pandas as pd
 
+from datetime import datetime
 from prfiesta.collectors.github import GitHubCollector
 
 github = GitHubCollector()

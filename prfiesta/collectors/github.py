@@ -82,7 +82,7 @@ class GitHubCollector:
     def _construct_query(users: List[str], after: Optional[datetime] = None, before: Optional[datetime] = None) -> str:
         """
         Constructs a GitHub Search Query
-        that returns pull requests made by the passed users.
+        that returns pull requests made by the passed users and options.
 
         Examples
         --------
@@ -91,7 +91,7 @@ class GitHubCollector:
             type:pr author:user1 author:user2 updated:2021-01-01..2021-03-01
 
         All dates are inclusive.
-        See GitHub Docs for full optons https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests
+        See GitHub Docs for full options https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests
         """
         query: List[str] = []
 
