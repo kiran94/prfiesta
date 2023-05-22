@@ -27,7 +27,7 @@ export GITHUB_TOKEN=... # or GITHUB_ENTERPRISE_TOKEN
 # Get all pull requests for a user
 prfiesta -u kiran94
 
-# Get all pull requests for a user a date
+# Get all pull requests for a user after a date
 prfiesta -u kiran94 --after 2023-01-01
 
 # Get all pull requests for a user between two dates
