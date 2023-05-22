@@ -11,7 +11,10 @@ documentation = "https://github.com/kiran94/prfiesta/blob/main/README.md"
 keywords = [ "pull-request", "pull-request-review", "performance-review" ]
 classifiers = [
     "Intended Audience :: Developers",
-    "Operating System :: OS Independent"
+    "Operating System :: OS Independent",
+    "Topic :: Utilities",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Version Control :: Git"
 ]
 
 [tool.poetry.dependencies]
