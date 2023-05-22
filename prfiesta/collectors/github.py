@@ -101,11 +101,11 @@ class GitHubCollector:
             query.append('author:' + u)
 
         if before and after:
-            query.append(f"updated:{after.strftime('%Y-%m-%d')}..{before.strftime('%Y-%m-%d')}")
+            query.append(f"created:{after.strftime('%Y-%m-%d')}..{before.strftime('%Y-%m-%d')}")
         elif before:
-            query.append(f"updated:<={before.strftime('%Y-%m-%d')}")
+            query.append(f"created:<={before.strftime('%Y-%m-%d')}")
         elif after:
-            query.append(f"updated:>={after.strftime('%Y-%m-%d')}")
+            query.append(f"created:>={after.strftime('%Y-%m-%d')}")
 
         return ' '.join(query)
 

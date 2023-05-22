@@ -76,7 +76,7 @@ _mock_issue2.__dict__ = {
         ('user1', 'user2'),
         {'after': datetime(2009, 1, 1)},
         [ _mock_issue1, _mock_issue2 ],
-        'type:pr author:user1 author:user2 updated:>=2009-01-01',
+        'type:pr author:user1 author:user2 created:>=2009-01-01',
         id='after_returned_results',
     ),
     pytest.param
@@ -84,7 +84,7 @@ _mock_issue2.__dict__ = {
         ('user1', 'user2'),
         {'before': datetime(2009, 1, 1)},
         [ _mock_issue1, _mock_issue2 ],
-        'type:pr author:user1 author:user2 updated:<=2009-01-01',
+        'type:pr author:user1 author:user2 created:<=2009-01-01',
         id='before_returned_resutls',
     ),
     pytest.param
@@ -92,7 +92,7 @@ _mock_issue2.__dict__ = {
         ('user1', 'user2'),
         {'after': datetime(2009, 1, 1),  'before': datetime(2010, 1, 1)},
         [ _mock_issue1, _mock_issue2 ],
-        'type:pr author:user1 author:user2 updated:2009-01-01..2010-01-01',
+        'type:pr author:user1 author:user2 created:2009-01-01..2010-01-01',
         id='before_and_after_returned_results',
     ),
 ])
