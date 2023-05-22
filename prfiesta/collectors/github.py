@@ -43,9 +43,15 @@ class GitHubCollector:
         ]
 
 
-    def collect(self, *users: Tuple[str], after: Optional[datetime] = None, before: Optional[datetime] = None) -> pd.DataFrame:
+    def collect(
+            self,
+            *users: Tuple[str],
+            after: Optional[datetime] = None,
+            before: Optional[datetime] = None,
+            use_updated: bool = False,
+        ) -> pd.DataFrame:
 
-        query = self._construct_query(users, after, before)
+        query = self._construct_query(users, after, before, use_updated)
 
         update_spinner(f'Searching {self._url} with[bold blue] {query}', self._spinner,  logger)
 
@@ -79,7 +85,7 @@ class GitHubCollector:
 
 
     @staticmethod
-    def _construct_query(users: List[str], after: Optional[datetime] = None, before: Optional[datetime] = None) -> str:
+    def _construct_query(users: List[str], after: Optional[datetime] = None, before: Optional[datetime] = None, use_updated: bool = False) -> str:
         """
         Constructs a GitHub Search Query
         that returns pull requests made by the passed users and options.
@@ -94,18 +100,23 @@ class GitHubCollector:
         See GitHub Docs for full options https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests
         """
         query: List[str] = []
-
         query.append('type:pr')
 
         for u in users:
             query.append('author:' + u)
 
+        time_filter = 'created'
+        if use_updated:
+            time_filter = 'updated'
+
+        logger.debug('using time filter %s', time_filter)
+
         if before and after:
-            query.append(f"updated:{after.strftime('%Y-%m-%d')}..{before.strftime('%Y-%m-%d')}")
+            query.append(f"{time_filter}:{after.strftime('%Y-%m-%d')}..{before.strftime('%Y-%m-%d')}")
         elif before:
-            query.append(f"updated:<={before.strftime('%Y-%m-%d')}")
+            query.append(f"{time_filter}:<={before.strftime('%Y-%m-%d')}")
         elif after:
-            query.append(f"updated:>={after.strftime('%Y-%m-%d')}")
+            query.append(f"{time_filter}:>={after.strftime('%Y-%m-%d')}")
 
         return ' '.join(query)
 
