@@ -10,8 +10,8 @@ It can be used by engineers or managers to gain insights into all the great work
 
 ## Install
 
-```
-TODO
+```bash
+python -m pip install prfiesta
 ```
 
 Dependencies:
