@@ -1,6 +1,6 @@
 # prfiesta 🦜🥳
 
-[![main](https://github.com/kiran94/prfiesta/actions/workflows/main.yml/badge.svg)](https://github.com/kiran94/prfiesta/actions/workflows/main.yml) ![GitHub](https://img.shields.io/github/license/kiran94/prfiesta)
+[![main](https://github.com/kiran94/prfiesta/actions/workflows/main.yml/badge.svg)](https://github.com/kiran94/prfiesta/actions/workflows/main.yml) ![GitHub](https://img.shields.io/github/license/kiran94/prfiesta) [![PyPI](https://img.shields.io/pypi/v/prfiesta)](https://pypi.org/project/prfiesta/)
 
 > Collect and Analyze Individual Contributor Pull Requests
 
