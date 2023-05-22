@@ -9,6 +9,10 @@ homepage = "https://github.com/kiran94/prfiesta"
 repository = "https://github.com/kiran94/prfiesta"
 documentation = "https://github.com/kiran94/prfiesta/blob/main/README.md"
 keywords = [ "pull-request", "pull-request-review", "performance-review" ]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent"
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
