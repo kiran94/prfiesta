@@ -75,9 +75,9 @@ You can control the output type using the `--output_type` option. Supported opti
 
 You can also customize the output file name using the `--output` option.
 
-### Time Filter
+### Date Filter
 
-When using the `--after` and `--before` date filters, by default `prfiesta` will use the `created` time dimension with these filters on the Git provider (e.g GitHub). This may not fit your use case and you may want to filter on when a pull request was updated instead. To do this you can use the `--use_updated` flag.
+When using the `--after` and `--before` date filters, by default `prfiesta` will use the `created` date dimension with these filters on the Git provider (e.g GitHub). This may not fit your use case and you may want to filter on when a pull request was updated instead. To do this you can use the `--use_updated` flag.
 
 See more information [here](https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests#search-by-when-an-issue-or-pull-request-was-created-or-last-updated).
 
@@ -91,6 +91,12 @@ If you trying to fetch data from a [GitHub Enterprise](https://docs.github.com/e
 
 - `GH_HOST` is set to your enterprise instance's API URL. Reach out to your internal GitHub team if you are not sure what this should be.
 - `GITHUB_ENTERPRISE_TOKEN` a [personal access token](https://docs.github.com/en/enterprise-cloud@latest/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) generated on your GitHub Enterprise instance.
+
+## GitHub Rate Limiting
+
+Depending on your input parameters, you may end up in a situation where you are being [Rate Limited](https://docs.github.com/en/rest/overview/resources-in-the-rest-api?apiVersion=2022-11-28#rate-limiting) by the GitHub API.
+
+See this [Notebook](./notebooks/misc/rate_limit.ipynb) on a way to handle this.
 
 ## Environment Variables
 
