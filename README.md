@@ -83,7 +83,7 @@ See more information [here](https://docs.github.com/en/search-github/searching-o
 
 ## Analysis
 
-`prfiesta` ships with built in plots to help analyze your pull request data. These serve as a starting point in your analysis. See more information on the build in plots and views [here](./docs/analysis.md).
+`prfiesta` ships with built in plots to help analyze your pull request data. These serve as a starting point in your analysis. See more information on the build in plots and views [here](https://github.com/kiran94/prfiesta/blob/main/docs/analysis.md).
 
 ## Using GitHub Enterprise
 
@@ -96,7 +96,7 @@ If you trying to fetch data from a [GitHub Enterprise](https://docs.github.com/e
 
 Depending on your input parameters, you may end up in a situation where you are being [Rate Limited](https://docs.github.com/en/rest/overview/resources-in-the-rest-api?apiVersion=2022-11-28#rate-limiting) by the GitHub API.
 
-See this [Notebook](./notebooks/misc/rate_limit.ipynb) on a way to handle this.
+See this [Notebook](https://github.com/kiran94/prfiesta/blob/main/notebooks/misc/rate_limit.ipynb) on a way to handle this.
 
 ## Environment Variables
 
@@ -121,7 +121,7 @@ poetry build
 
 This should leave you in a state where you have the virtual environment sourced, all dependencies are installed and `prfiesta` is installed locally.
 
-You can then leverage the various commands in the [makefile](./makefile) for development tasks:
+You can then leverage the various commands in the [makefile](https://github.com/kiran94/prfiesta/blob/main/makefile) for development tasks:
 
 ```bash
 # Run all unit tests
