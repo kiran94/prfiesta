@@ -144,3 +144,24 @@ precommit_install
 # If you want to run all checks on all files without comitting.
 precommit_run
 ```
+
+### Creating Prereleases
+
+When you create a pull request on this repository, various CI checks are run, towards the end of those checks there is a `release` job.
+
+Usually when running under `main`, this job is responsible for publishing new versions to the pypi. However when running under a pull request, this will create a special prerelease package specific to that pull reuqest.
+
+The versioning of this package follows [PEP-440](https://peps.python.org/pep-0440/#pre-releases) and will look something like this:
+
+```
+0.8.1b125
+```
+
+Where
+- `0.8.1` = The bumped version of what is currently within the `pyproject.toml` of that pull request. We don't attempt to do any analysis to figure out if we should be bumping with a higher serverity in this context.
+- `b` = Beta; Indicates to pypi that this is a prerelease package.
+- `125` = The `github.run_number` from [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/contexts#github-context).
+
+An example prerelease package looks like this: https://pypi.org/project/prfiesta/0.8.1b125/
+
+Downstream users can then do a full end to end test with the prerelease package before the change is merged into `main`.
