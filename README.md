@@ -165,3 +165,5 @@ Where
 An example prerelease package looks like this: https://pypi.org/project/prfiesta/0.8.1b125/
 
 Downstream users can then do a full end to end test with the prerelease package before the change is merged into `main`.
+
+You can find the full version history of package [here](https://pypi.org/project/prfiesta/#history)
