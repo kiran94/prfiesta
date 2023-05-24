@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "prfiesta"
 version = "0.8.0"
-description = "Analyze Individual Contributor Pull Requests"
+description = "Collect and Analyze Individual Contributor Pull Requests"
 authors = ["kiran94"]
 license = "MIT"
 readme = "README.md"
