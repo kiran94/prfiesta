@@ -105,17 +105,19 @@ jobs:
         if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
         run: |
           VERSION=$(cat pyproject.toml | grep "^version =" | cut -d= -f2 | sed 's/"//g' | sed 's/^\s*\|\s*$//g')
-          # poetry version "${VERSION}b${{ github.run_number }}_${{ github.run_attempt }}"
-          echo "${VERSION}b${{ github.run_number }}_${{ github.run_attempt }}"
+          VERSION="${VERSION}b${{ github.run_number }}" # _${{ github.run_attempt }}"
+
+          echo $VERSION
+          poetry version $VERSION
 
       # TODO:
-      # - name: Deploy (Prerelease)
-      #   if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
-      #   run: |
-      #     poetry build
-      #     poetry publish -u __token__ -p $POETRY_PYPI_TOKEN_PYPI
-      #   env:
-      #     POETRY_PYPI_TOKEN_PYPI: ${{ secrets.POETRY_PYPI_TEST_TOKEN_PYPI }}
+      - name: Deploy (Prerelease)
+        if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
+        run: |
+          poetry build
+          poetry publish -u __token__ -p $POETRY_PYPI_TOKEN_PYPI
+        env:
+          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.POETRY_PYPI_TEST_TOKEN_PYPI }}
 
       # Main Release
       - name: Bump Poetry
