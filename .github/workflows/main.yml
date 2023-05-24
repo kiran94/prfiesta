@@ -115,7 +115,9 @@ jobs:
         if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
         run: |
           poetry build
-          poetry publish -u __token__ -p $POETRY_PYPI_TOKEN_PYPI
+          poetry config repositories.testpypi https://test.pypi.org/legacy/
+
+          poetry publish --repository=testpypi -u __token__ -p $POETRY_PYPI_TOKEN_PYPI
         env:
           POETRY_PYPI_TOKEN_PYPI: ${{ secrets.POETRY_PYPI_TEST_TOKEN_PYPI }}
 
