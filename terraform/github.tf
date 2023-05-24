@@ -1,7 +1,8 @@
 resource "github_repository" "main" {
-  name        = "prfiesta"
-  description = "Analyze Individual Contributor Pull Requests"
-  visibility  = "private"
+  name         = "prfiesta"
+  description  = "Collect and Analyze Individual Contributor Pull Requests"
+  visibility   = "private"
+  homepage_url = "https://pypi.org/project/prfiesta/"
 
   has_projects  = false
   has_wiki      = false
