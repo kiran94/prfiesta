@@ -28,12 +28,6 @@ resource "github_actions_secret" "pypi_token" {
   plaintext_value = data.aws_ssm_parameter.pypi_token.value
 }
 
-resource "github_actions_secret" "pypi_test_token" {
-  repository      = github_repository.main.name
-  secret_name     = "POETRY_PYPI_TEST_TOKEN_PYPI"
-  plaintext_value = data.aws_ssm_parameter.pypi_test_token.value
-}
-
 # OUTPUTS
 
 output "github_repository_ssh_clone_url" {
