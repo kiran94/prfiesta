@@ -104,7 +104,16 @@ jobs:
       - name: Bump Poetry (Prerelease)
         if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
         run: |
+          python -m pip install semantic-version
+
+          # extract the current version
           VERSION=$(cat pyproject.toml | grep "^version =" | cut -d= -f2 | sed 's/"//g' | sed 's/^\s*\|\s*$//g')
+
+          # bump the version
+          # it's difficult to know if this should be patch, minor, major ahead of time as it would require running the actual release action
+          VERSION=$(python -c "from semantic_version import Version; v = Version('${VERSION}'); v = v.next_patch(); print(v)")
+
+          # add prerelease version identifier
           VERSION="${VERSION}b${{ github.run_number }}" # _${{ github.run_attempt }}"
 
           echo $VERSION
