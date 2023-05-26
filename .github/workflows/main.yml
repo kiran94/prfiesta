@@ -134,11 +134,14 @@ jobs:
         uses: thollander/actions-comment-pull-request@v2
         with:
           message: |
-            :wave: Try your change!
+            Change was prereleased to pypi. Try it out :rocket:
 
             ```bash
             python -m pip install prfiesta==${{steps.prerelease.outputs.VERSION}}
             ```
+
+            https://pypi.org/project/prfiesta/${{steps.prerelease.outputs.VERSION}}/
+
           comment_tag: execution
 
       - name: Deploy (Prerelease)
