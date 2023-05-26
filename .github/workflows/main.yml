@@ -94,6 +94,7 @@ jobs:
     needs: [build, terraform-lint]
     permissions:
       contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v3
       - uses: abatilo/actions-poetry@v2
@@ -133,8 +134,11 @@ jobs:
         uses: thollander/actions-comment-pull-request@v2
         with:
           message: |
-            Hello world ! :wave:
-            python -m pip install ${{steps.prerelease.outputs.VERSION}}
+            :wave: Try your change!
+
+            ```bash
+            python -m pip install prfiesta==${{steps.prerelease.outputs.VERSION}}
+            ```
           comment_tag: execution
 
       - name: Deploy (Prerelease)
