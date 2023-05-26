@@ -32,6 +32,9 @@ validate_notebooks:
 	poetry run bash ./notebooks/scripts/run_all.sh './notebooks/plots/*.ipynb' 'notebooks/plots'
 	poetry run bash ./notebooks/scripts/run_all.sh './notebooks/views/*.ipynb' 'notebooks/views'
 
+integration_test:
+	poetry run papermill --cwd notebooks/misc ./notebooks/misc/integration_test.ipynb ./notebooks/misc/integration_test.ipynb
+
 clean:
 	rm -rf ./htmlcov
 	rm -rf ./.pytest_cache
