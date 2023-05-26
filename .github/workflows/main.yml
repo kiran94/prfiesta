@@ -94,6 +94,7 @@ jobs:
     needs: [build, terraform-lint]
     permissions:
       contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v3
       - uses: abatilo/actions-poetry@v2
@@ -108,6 +109,7 @@ jobs:
 
       # Prerelease
       - name: Bump Poetry (Prerelease)
+        id: prerelease
         if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
         run: |
           python -m pip install semantic-version
@@ -124,6 +126,23 @@ jobs:
 
           echo $VERSION
           poetry version $VERSION
+
+          echo "VERSION=${VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Comment (Prerelease)
+        if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            Change was prereleased to pypi. Try it out :rocket:
+
+            ```bash
+            python -m pip install prfiesta==${{steps.prerelease.outputs.VERSION}}
+            ```
+
+            https://pypi.org/project/prfiesta/${{steps.prerelease.outputs.VERSION}}/
+
+          comment_tag: execution
 
       - name: Deploy (Prerelease)
         if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
