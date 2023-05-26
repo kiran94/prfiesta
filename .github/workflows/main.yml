@@ -127,7 +127,7 @@ jobs:
           echo $VERSION
           poetry version $VERSION
 
-          echo "::set-output name=VERSION::${VERSION}"
+          echo "VERSION=${VERSION}" >> $GITHUB_OUTPUT
 
       - name: Comment (Prerelease)
         if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
