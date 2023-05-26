@@ -128,11 +128,14 @@ jobs:
 
           echo "::set-output name=VERSION::${VERSION}"
 
-      - name: Comment Prerelease
+      - name: Comment (Prerelease)
         if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
-        run: |
-          echo "TEST"
-          echo "${{steps.prerelease.outputs.VERSION}}"
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            Hello world ! :wave:
+            python -m pip install ${{steps.prerelease.outputs.VERSION}}
+          comment_tag: execution
 
       - name: Deploy (Prerelease)
         if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
