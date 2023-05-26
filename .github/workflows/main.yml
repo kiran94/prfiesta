@@ -108,6 +108,7 @@ jobs:
 
       # Prerelease
       - name: Bump Poetry (Prerelease)
+        id: prerelease
         if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
         run: |
           python -m pip install semantic-version
@@ -124,6 +125,14 @@ jobs:
 
           echo $VERSION
           poetry version $VERSION
+
+          echo "::set-output name=VERSION::${VERSION}"
+
+      - name: Comment Prerelease
+        if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
+        run: |
+          echo "TEST"
+          echo "${{steps.prerelease.outputs.VERSION}}"
 
       - name: Deploy (Prerelease)
         if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
