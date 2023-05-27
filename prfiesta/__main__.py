@@ -47,7 +47,6 @@ def main(**kwargs) -> None:
     drop_columns: list[str] = list(kwargs.get('drop_columns'))
     use_updated: bool = kwargs.get('use_updated')
     use_involves: bool = kwargs.get('use_involves')
-
     use_reviewed_by: bool = kwargs.get('use_reviewed_by')
     use_review_requested: bool = kwargs.get('use_review_requested')
 
