@@ -87,7 +87,7 @@ You can control the output type using the `--output-type` option. Supported opti
 
 You can also customize the output file name using the `--output` option.
 
-### Author Filter
+### User Filter
 
 By default, `prfiesta` will take the users provided in the `--user` option and search the Git provider for any pull requests that the user **authored**. Within more collaborative environments, this may not be what you want as you may want to also gain some visibility into all secondary contributions a user made (e.g commenting on others pull requests).
 
