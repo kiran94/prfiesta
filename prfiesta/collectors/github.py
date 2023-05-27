@@ -48,10 +48,11 @@ class GitHubCollector:
             *users: Tuple[str],
             after: Optional[datetime] = None,
             before: Optional[datetime] = None,
-            use_updated: bool = False,
+            use_updated: Optional[bool] = False,
+            use_involves: Optional[bool] = False,
         ) -> pd.DataFrame:
 
-        query = self._construct_query(users, after, before, use_updated)
+        query = self._construct_query(users, after, before, use_updated, use_involves)
 
         update_spinner(f'Searching {self._url} with[bold blue] {query}', self._spinner,  logger)
 
@@ -85,7 +86,13 @@ class GitHubCollector:
 
 
     @staticmethod
-    def _construct_query(users: List[str], after: Optional[datetime] = None, before: Optional[datetime] = None, use_updated: bool = False) -> str:
+    def _construct_query(
+            users: List[str],
+            after: Optional[datetime] = None,
+            before: Optional[datetime] = None,
+            use_updated: Optional[bool] = False,
+            use_involves: Optional[bool] = False,
+        ) -> str:
         """
         Constructs a GitHub Search Query
         that returns pull requests made by the passed users and options.
@@ -102,8 +109,14 @@ class GitHubCollector:
         query: List[str] = []
         query.append('type:pr')
 
+        author_filter = 'author'
+        if use_involves:
+            author_filter = 'involves'
+
         for u in users:
-            query.append('author:' + u)
+            query.append(f'{author_filter}:{u}')
+
+        logger.debug('using author filter %s', author_filter)
 
         time_filter = 'created'
         if use_updated:

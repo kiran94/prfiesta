@@ -17,15 +17,16 @@ github_environment = GitHubEnvironment()
 
 
 @click.command()
-@click.option('-u', '--users', required=True, multiple=True, help='The GitHub Users to search for. Can be multiple (space delimited)')
-@click.option('-t', '--token', help='The Authentication token to use')
-@click.option('-x', '--url', help='The URL of the Git provider to use')
-@click.option('-o', '--output', default=None, help='The output location')
-@click.option('-ot', '--output_type', type=click.Choice(['csv', 'parquet']), default='csv', show_default=True, help='The output format')
+@click.option('-u', '--users', required=True, multiple=True, help='The GitHub Users to search for. Can be multiple')
+@click.option('-a', '--after', type=click.DateTime(formats=['%Y-%m-%d']), help='Only search for pull requests after this date e.g 2023-01-01')
+@click.option('-b', '--before', type=click.DateTime(formats=['%Y-%m-%d']), help='Only search for pull requests before this date e.g 2023-04-30')
+@click.option('-d', '--use_updated', is_flag=True, default=False, help='filter on when the pr was last updated rather then created')
+@click.option('-i', '--use_involves', is_flag=True, default=False, help='include prs where the author was the author or assignee or mentioned or commented')
 @click.option('-dc', '--drop_columns', multiple=True, help='Drop columns from the output dataframe')
-@click.option('--after', type=click.DateTime(formats=['%Y-%m-%d']), help='Only search for pull requests after this date e.g 2023-01-01')
-@click.option('--before', type=click.DateTime(formats=['%Y-%m-%d']), help='Only search for pull requests before this date e.g 2023-04-30')
-@click.option('--use_updated', is_flag=True, default=False, help='filter on when the pr was last updated rather then created')
+@click.option('-x', '--url', help='The URL of the Git provider to use')
+@click.option('-t', '--token', help='The Authentication token to use')
+@click.option('-o', '--output', default=None, help='The output location')
+@click.option('-ot', '--output_type', type=click.Choice(['csv', 'parquet']), default='csv', show_default=True, show_choices=True, help='The output format')
 @click.version_option(__version__)
 def main(**kwargs) -> None:
 
@@ -38,6 +39,7 @@ def main(**kwargs) -> None:
     after: datetime = kwargs.get('after')
     drop_columns: list[str] = list(kwargs.get('drop_columns'))
     use_updated: bool = kwargs.get('use_updated')
+    use_involves: bool = kwargs.get('use_involves')
 
     logger.info('[bold green]PR Fiesta 🦜🥳')
 
@@ -46,7 +48,7 @@ def main(**kwargs) -> None:
     with Live(spinner, refresh_per_second=20, transient=True):
 
         collector = GitHubCollector(token=token, url=url, spinner=spinner, drop_columns=drop_columns)
-        pr_frame = collector.collect(*users, after=after, before=before, use_updated=use_updated)
+        pr_frame = collector.collect(*users, after=after, before=before, use_updated=use_updated, use_involves=use_involves)
 
         if not pr_frame.empty:
             logger.info('Found [bold green]%s[/bold green] pull requests!', pr_frame.shape[0])
