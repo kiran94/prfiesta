@@ -125,10 +125,21 @@ jobs:
           # add prerelease version identifier
           VERSION="${VERSION}b${{ github.run_number }}" # _${{ github.run_attempt }}"
 
-          echo $VERSION
           poetry version $VERSION
 
+          # ensure the published package links back to the pull request
+          PULL_REQUEST_NUMBER=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+          sed "s/repository =.*/repository = \"https:\/\/github.com\/kiran94\/prfiesta\/pull\/$PULL_REQUEST_NUMBER\"/" pyproject.toml -i
+
           echo "VERSION=${VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Deploy (Prerelease)
+        if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
+        run: |
+          poetry build
+          poetry publish -u __token__ -p $POETRY_PYPI_TOKEN_PYPI
+        env:
+          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.POETRY_PYPI_TOKEN_PYPI }}
 
       - name: Comment (Prerelease)
         if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
@@ -144,14 +155,6 @@ jobs:
             https://pypi.org/project/prfiesta/${{steps.prerelease.outputs.VERSION}}/
 
           comment_tag: execution
-
-      - name: Deploy (Prerelease)
-        if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
-        run: |
-          poetry build
-          poetry publish -u __token__ -p $POETRY_PYPI_TOKEN_PYPI
-        env:
-          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.POETRY_PYPI_TOKEN_PYPI }}
 
       # Main Release
       - name: Bump Poetry
