@@ -112,7 +112,7 @@ Learn more about searching review requests [here](https://docs.github.com/en/sea
 
 #### User Requested Review
 
-`prfiesta` exposes a `--use-review-requested` flag  which will collect pull requests where the user was *requested* a review from other collaborators.
+`prfiesta` exposes a `--use-review-requested` flag which will collect pull requests where the user was *requested* a review from other collaborators.
 
 Learn more about searching review requests [here](https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests#search-by-pull-request-review-status-and-reviewer)
 
