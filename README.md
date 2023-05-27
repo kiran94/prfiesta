@@ -34,13 +34,13 @@ prfiesta -u kiran94 --after 2023-01-01
 prfiesta -u kiran94 --after 2023-01-01 --before 2023-06-01
 
 # Get all pull requests for a user updated after a date
-prfiesta -u kiran94 --after 2023-01-01 --use_updated
+prfiesta -u kiran94 --after 2023-01-01 --use-updated
 
 # Get all pull requests with a custom output file name
 prfiesta -u kiran94 --output my_pull_requests.csv
 
 # Get all pull requests in parquet format with a custom file name
-prfiesta -u kiran94 --output_type parquet --output my_pull_requests.parquet
+prfiesta -u kiran94 --output-type parquet --output my_pull_requests.parquet
 
 # Get all pull requests for more then one user
 prfiesta -u kiran94 -u user2
@@ -49,7 +49,7 @@ prfiesta -u kiran94 -u user2
 prfiesta -u kiran94 -dc events_url -dc comments_url -dc node_id
 
 # Get all pull requests where the user was involved (as opposed to just authored)
-prfiesta -u kiran94 --use_involves
+prfiesta -u kiran94 --use-involves
 
 # Get help
 prfiesta --help
@@ -74,7 +74,7 @@ print(frame)
 
 ### Output
 
-You can control the output type using the `--output_type` option. Supported options:
+You can control the output type using the `--output-type` option. Supported options:
 
 - `csv` (default)
 - `parquet`
@@ -85,7 +85,7 @@ You can also customize the output file name using the `--output` option.
 
 By default, `prfiesta` will take the users provided in the `--user` option and search the Git provider for any pull requests that the user **authored**. Within more collaborative environments, this may not be what you want as you may want to also gain some visibility into all secondary contributions a user made (e.g commenting on others pull requests).
 
-To help with this, `prfiesta` exposes the `--use_involves` flag which will search for pull requests that the user either:
+To help with this, `prfiesta` exposes the `--use-involves` flag which will search for pull requests that the user either:
 
 - Created by a certain user
 - Assigned to that user
@@ -96,7 +96,7 @@ Learn more about `involves` [here](https://docs.github.com/en/search-github/sear
 
 ### Date Filter
 
-When using the `--after` and `--before` date filters, by default `prfiesta` will use the `created` date dimension with these filters on the Git provider (e.g GitHub). This may not fit your use case and you may want to filter on when a pull request was updated instead. To do this you can use the `--use_updated` flag.
+When using the `--after` and `--before` date filters, by default `prfiesta` will use the `created` date dimension with these filters on the Git provider (e.g GitHub). This may not fit your use case and you may want to filter on when a pull request was updated instead. To do this you can use the `--use-updated` flag.
 
 See more information [here](https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests#search-by-when-an-issue-or-pull-request-was-created-or-last-updated).
 
