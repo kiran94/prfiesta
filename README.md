@@ -48,6 +48,9 @@ prfiesta -u kiran94 -u user2
 # Get all pull requests and drop specific columns from the output
 prfiesta -u kiran94 -dc events_url -dc comments_url -dc node_id
 
+# Get all pull requests where the user was involved (as opposed to just authored)
+prfiesta -u kiran94 --use_involves
+
 # Get help
 prfiesta --help
 ```
@@ -74,6 +77,19 @@ You can control the output type using the `--output_type` option. Supported opti
 - `parquet`
 
 You can also customize the output file name using the `--output` option.
+
+### Author Filter
+
+By default, `prfiesta` will take the users provided in the `--user` option and search the Git provider for any pull requests that the user **authored**. Within more collaborative environments, this may not be what you want as you may want to also gain some visibility into all secondary contributions a user made (e.g commenting on others pull requests).
+
+To help with this, `prfiesta` exposes the `--use_involves` flag which will search for pull requests that the user either:
+
+- Created by a certain user
+- Assigned to that user
+- Mention that user
+- Were commented on by that user
+
+Learn more about `involves` [here](https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests#search-by-a-user-thats-involved-in-an-issue-or-pull-request).
 
 ### Date Filter
 
