@@ -130,6 +130,14 @@ jobs:
 
           echo "VERSION=${VERSION}" >> $GITHUB_OUTPUT
 
+      - name: Deploy (Prerelease)
+        if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
+        run: |
+          poetry build
+          poetry publish -u __token__ -p $POETRY_PYPI_TOKEN_PYPI
+        env:
+          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.POETRY_PYPI_TOKEN_PYPI }}
+
       - name: Comment (Prerelease)
         if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
         uses: thollander/actions-comment-pull-request@v2
@@ -144,14 +152,6 @@ jobs:
             https://pypi.org/project/prfiesta/${{steps.prerelease.outputs.VERSION}}/
 
           comment_tag: execution
-
-      - name: Deploy (Prerelease)
-        if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
-        run: |
-          poetry build
-          poetry publish -u __token__ -p $POETRY_PYPI_TOKEN_PYPI
-        env:
-          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.POETRY_PYPI_TOKEN_PYPI }}
 
       # Main Release
       - name: Bump Poetry
