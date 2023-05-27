@@ -24,7 +24,7 @@ def test_main_missing_users() -> None:
     pytest.param
     (
         ['--users', 'test_user'],
-        [call('test_user', after=None, before=None, use_updated=False)],
+        [call('test_user', after=None, before=None, use_updated=False, use_involves=False)],
         pd.DataFrame(),
         'csv',
         id='user_provided',
@@ -32,7 +32,7 @@ def test_main_missing_users() -> None:
     pytest.param
     (
         ['--users', 'test_user', '--after', '2020-01-01'],
-        [call('test_user', after=datetime(2020, 1, 1), before=None, use_updated=False)],
+        [call('test_user', after=datetime(2020, 1, 1), before=None, use_updated=False, use_involves=False)],
         pd.DataFrame(),
         'csv',
         id='with_after',
@@ -40,7 +40,7 @@ def test_main_missing_users() -> None:
     pytest.param
     (
         ['--users', 'test_user', '--before', '2020-01-01'],
-        [call('test_user', before=datetime(2020, 1, 1), after=None, use_updated=False)],
+        [call('test_user', before=datetime(2020, 1, 1), after=None, use_updated=False, use_involves=False)],
         pd.DataFrame(),
         'csv',
         id='with_before',
@@ -48,7 +48,7 @@ def test_main_missing_users() -> None:
     pytest.param
     (
         ['--users', 'test_user', '--before', '2020-01-01', '--after', '2009-01-01'],
-        [call('test_user', before=datetime(2020, 1, 1), after=datetime(2009, 1, 1), use_updated=False)],
+        [call('test_user', before=datetime(2020, 1, 1), after=datetime(2009, 1, 1), use_updated=False, use_involves=False)],
         pd.DataFrame(),
         'csv',
         id='with_before_and_after',
@@ -56,7 +56,7 @@ def test_main_missing_users() -> None:
     pytest.param
     (
         ['--users', 'test_user'],
-        [call('test_user', after=None, before=None, use_updated=False)],
+        [call('test_user', after=None, before=None, use_updated=False, use_involves=False)],
         pd.DataFrame(
                 data=[(1, 2, 3)],
                 columns=['col1', 'col2', 'col3'],
@@ -67,7 +67,7 @@ def test_main_missing_users() -> None:
     pytest.param
     (
         ['--users', 'test_user', '--output_type', 'parquet'],
-        [call('test_user', after=None, before=None, use_updated=False)],
+        [call('test_user', after=None, before=None, use_updated=False, use_involves=False)],
         pd.DataFrame(
                 data=[(1, 2, 3)],
                 columns=['col1', 'col2', 'col3'],
@@ -78,10 +78,18 @@ def test_main_missing_users() -> None:
     pytest.param
     (
         ['--users', 'test_user', '--before', '2020-01-01', '--use_updated'],
-        [call('test_user', before=datetime(2020, 1, 1), after=None, use_updated=True)],
+        [call('test_user', before=datetime(2020, 1, 1), after=None, use_updated=True, use_involves=False)],
         pd.DataFrame(),
         'csv',
         id='with_use_updated',
+    ),
+    pytest.param
+    (
+        ['--users', 'test_user', '--before', '2020-01-01', '--use_involves'],
+        [call('test_user', before=datetime(2020, 1, 1), after=None, use_updated=False, use_involves=True)],
+        pd.DataFrame(),
+        'csv',
+        id='with_use_involves',
     ),
 ])
 @patch('prfiesta.__main__.Spinner')
