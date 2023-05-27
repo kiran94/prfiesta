@@ -18,17 +18,17 @@ github_environment = GitHubEnvironment()
 
 @cloup.command()
 @cloup.option_group(
-    'General Options',
+    'general options',
     cloup.option('-u', '--users', required=True, multiple=True, help='The GitHub Users to search for. Can be multiple'),
 )
 @cloup.option_group(
-    'Date Filter Options',
+    'date filter options',
     cloup.option('-a', '--after', type=click.DateTime(formats=['%Y-%m-%d']), help='Only search for pull requests after this date e.g 2023-01-01'),
     cloup.option('-b', '--before', type=click.DateTime(formats=['%Y-%m-%d']), help='Only search for pull requests before this date e.g 2023-04-30'),
     cloup.option('-d', '--use-updated', is_flag=True, default=False, help='filter on when the pr was last updated rather then created'),
 )
 @cloup.option_group(
-    'User Filter Options',
+    'user filter options',
     cloup.option('-i', '--use-involves', is_flag=True, default=False, help='collect prs where the users are the author or assignee or mentioned or commented'),
     cloup.option('-r', '--use-reviewed-by', is_flag=True, default=False, help='collect prs where the users reviewed them'),
     cloup.option('-rr', '--use-review-requested', is_flag=True, default=False, help='collect prs where the users were requested a review'),
@@ -36,13 +36,13 @@ github_environment = GitHubEnvironment()
     help='Collect alternative details for the users. If omitted then just collect the prs that a user has authored.',
 )
 @cloup.option_group(
-    'Output Options',
+    'output options',
     cloup.option('-o', '--output', default=None, help='The output location'),
     cloup.option('-ot', '--output-type', type=click.Choice(['csv', 'parquet']), default='csv', show_default=True, show_choices=True, help='The output format'),
     cloup.option('-dc', '--drop-columns', multiple=True, help='Drop columns from the output dataframe'),
 )
 @cloup.option_group(
-    'Authentication Options',
+    'authentication options',
     cloup.option('-x', '--url', help='The URL of the Git provider to use'),
     cloup.option('-t', '--token', help='The Authentication token to use'),
 )
