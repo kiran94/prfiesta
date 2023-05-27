@@ -89,7 +89,7 @@ You can control the output type using the `--output-type` option. Supported opti
 - `parquet`
 - [`duckdb`](https://duckdb.org/)
 
-You can also customize the output file name using the `--output` option. When using `duckdb`, this argument is the duckdb database that we should export into.
+You can also customize the output file name using the `--output` option. When using `duckdb`, this argument is the duckdb database that we should export into. You can see an example of a duckdb workflow [here](https://github.com/kiran94/prfiesta/blob/main/notebooks/misc/duckdb_integration.ipynb).
 
 ### User Filter
 
