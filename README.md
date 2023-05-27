@@ -53,6 +53,9 @@ prfiesta -u kiran94 --use_involves
 
 # Get help
 prfiesta --help
+
+# Show the current version
+prfiesta --version
 ```
 
 You can also leverage `prfiesta` directly in your own application:
@@ -180,6 +183,6 @@ Where
 
 An example prerelease package looks like this: https://pypi.org/project/prfiesta/0.8.1b125/
 
-Downstream users can then do a full end to end test with the prerelease package before the change is merged into `main`.
+Downstream users can then do a full end to end test with the prerelease package before the change is merged into `main`. This will automatically be posted into the pull request [example](https://github.com/kiran94/prfiesta/pull/36#issuecomment-1564909558).
 
 You can find the full version history of package [here](https://pypi.org/project/prfiesta/#history)
