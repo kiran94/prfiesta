@@ -125,8 +125,11 @@ jobs:
           # add prerelease version identifier
           VERSION="${VERSION}b${{ github.run_number }}" # _${{ github.run_attempt }}"
 
-          echo $VERSION
           poetry version $VERSION
+
+          # ensure the published package links back to the pull request
+          PULL_REQUEST_NUMBER=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+          sed "s/repository =.*/repository = \"https:\/\/github.com\/kiran94\/prfiesta\/pull\/$PULL_REQUEST_NUMBER\"/" pyproject.toml -i
 
           echo "VERSION=${VERSION}" >> $GITHUB_OUTPUT
 
