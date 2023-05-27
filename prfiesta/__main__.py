@@ -2,6 +2,7 @@ import logging
 from datetime import datetime
 
 import click
+import cloup
 from rich.live import Live
 from rich.spinner import Spinner
 from rich.text import Text
@@ -15,19 +16,25 @@ logger = logging.getLogger(__name__)
 
 github_environment = GitHubEnvironment()
 
-
-@click.command()
-@click.option('-u', '--users', required=True, multiple=True, help='The GitHub Users to search for. Can be multiple')
-@click.option('-a', '--after', type=click.DateTime(formats=['%Y-%m-%d']), help='Only search for pull requests after this date e.g 2023-01-01')
-@click.option('-b', '--before', type=click.DateTime(formats=['%Y-%m-%d']), help='Only search for pull requests before this date e.g 2023-04-30')
-@click.option('-d', '--use-updated', is_flag=True, default=False, help='filter on when the pr was last updated rather then created')
-@click.option('-i', '--use-involves', is_flag=True, default=False, help='include prs where the author was the author or assignee or mentioned or commented')
-@click.option('-dc', '--drop-columns', multiple=True, help='Drop columns from the output dataframe')
-@click.option('-x', '--url', help='The URL of the Git provider to use')
-@click.option('-t', '--token', help='The Authentication token to use')
-@click.option('-o', '--output', default=None, help='The output location')
-@click.option('-ot', '--output-type', type=click.Choice(['csv', 'parquet']), default='csv', show_default=True, show_choices=True, help='The output format')
-@click.version_option(__version__)
+@cloup.command()
+@cloup.option('-u', '--users', required=True, multiple=True, help='The GitHub Users to search for. Can be multiple')
+@cloup.option('-a', '--after', type=click.DateTime(formats=['%Y-%m-%d']), help='Only search for pull requests after this date e.g 2023-01-01')
+@cloup.option('-b', '--before', type=click.DateTime(formats=['%Y-%m-%d']), help='Only search for pull requests before this date e.g 2023-04-30')
+@cloup.option('-d', '--use-updated', is_flag=True, default=False, help='filter on when the pr was last updated rather then created')
+@cloup.option_group(
+    'Author Filter',
+    cloup.option('-i', '--use-involves', is_flag=True, default=False, help='collect prs where the users are the author or assignee or mentioned or commented'),
+    cloup.option('-r', '--use-reviewed-by', is_flag=True, default=False, help='collect prs where the users reviewed them'),
+    cloup.option('-rr', '--use-review-requested', is_flag=True, default=False, help='collect prs where the users were requested a review'),
+    constraint=cloup.constraints.mutually_exclusive,
+    help='Collect alternative details for the users. If omitted then just collect the prs that a user has authored.',
+)
+@cloup.option('-dc', '--drop-columns', multiple=True, help='Drop columns from the output dataframe')
+@cloup.option('-x', '--url', help='The URL of the Git provider to use')
+@cloup.option('-t', '--token', help='The Authentication token to use')
+@cloup.option('-o', '--output', default=None, help='The output location')
+@cloup.option('-ot', '--output-type', type=click.Choice(['csv', 'parquet']), default='csv', show_default=True, show_choices=True, help='The output format')
+@cloup.version_option(__version__)
 def main(**kwargs) -> None:
 
     users: tuple[str] = kwargs.get('users')
@@ -41,6 +48,9 @@ def main(**kwargs) -> None:
     use_updated: bool = kwargs.get('use_updated')
     use_involves: bool = kwargs.get('use_involves')
 
+    use_reviewed_by: bool = kwargs.get('use_reviewed_by')
+    use_review_requested: bool = kwargs.get('use_review_requested')
+
     logger.info('[bold green]PR Fiesta 🦜🥳')
 
     spinner = Spinner('dots', text=Text('Loading', style=SPINNER_STYLE))
@@ -48,7 +58,14 @@ def main(**kwargs) -> None:
     with Live(spinner, refresh_per_second=20, transient=True):
 
         collector = GitHubCollector(token=token, url=url, spinner=spinner, drop_columns=drop_columns)
-        pr_frame = collector.collect(*users, after=after, before=before, use_updated=use_updated, use_involves=use_involves)
+        pr_frame = collector.collect(
+            *users,
+            after=after,
+            before=before,
+            use_updated=use_updated,
+            use_involves=use_involves,
+            use_reviewed_by=use_reviewed_by,
+            use_review_requested=use_review_requested)
 
         if not pr_frame.empty:
             logger.info('Found [bold green]%s[/bold green] pull requests!', pr_frame.shape[0])
