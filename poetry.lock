@@ -503,6 +503,22 @@ files = [
 colorama = {version = "*", markers = "platform_system == \"Windows\""}
 
 [[package]]
+name = "cloup"
+version = "2.1.0"
+description = "Adds features to Click: option groups, constraints, subcommand sections and help themes."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "cloup-2.1.0-py2.py3-none-any.whl", hash = "sha256:cf93e4c4d22482d64be49d931342c997f100b9633600d59d061d0b449033754d"},
+    {file = "cloup-2.1.0.tar.gz", hash = "sha256:dd42c7c9cd493fadc53a4236f96178a3f118bbbd945a7f8adafcd5034d826971"},
+]
+
+[package.dependencies]
+click = ">=8.0,<9.0"
+typing-extensions = {version = "*", markers = "python_version <= \"3.8\""}
+
+[[package]]
 name = "colorama"
 version = "0.4.6"
 description = "Cross-platform colored terminal text."
@@ -3618,4 +3634,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "b6a09ab8c097148f041d2f0561f420df1c5d4da8c5d32b21c3e9b3b4297a14fb"
+content-hash = "6944cdc778620b40530e933152f0bcd7145535ab76957ffec9c89eb13e8c521c"
