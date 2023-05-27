@@ -42,6 +42,9 @@ prfiesta -u kiran94 --output my_pull_requests.csv
 # Get all pull requests in parquet format with a custom file name
 prfiesta -u kiran94 --output-type parquet --output my_pull_requests.parquet
 
+# Get all pull requests and export to a duckdb database
+prfiesta -u kiran94 --output-type duckdb --output mydatabase.duckdb
+
 # Get all pull requests for more then one user
 prfiesta -u kiran94 -u user2
 
@@ -84,8 +87,9 @@ You can control the output type using the `--output-type` option. Supported opti
 
 - `csv` (default)
 - `parquet`
+- [`duckdb`](https://duckdb.org/)
 
-You can also customize the output file name using the `--output` option.
+You can also customize the output file name using the `--output` option. When using `duckdb`, this argument is the duckdb database that we should export into.
 
 ### User Filter
 
