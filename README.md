@@ -85,12 +85,12 @@ You can also customize the output file name using the `--output` option.
 
 By default, `prfiesta` will take the users provided in the `--user` option and search the Git provider for any pull requests that the user **authored**. Within more collaborative environments, this may not be what you want as you may want to also gain some visibility into all secondary contributions a user made (e.g commenting on others pull requests).
 
-To help with this, `prfiesta` exposes the `--use-involves` flag which will search for pull requests that the user either:
+To help with this, `prfiesta` exposes the `--use-involves` flag which will search for pull requests that were:
 
 - Created by a certain user
 - Assigned to that user
 - Mention that user
-- Were commented on by that user
+- commented on by that user
 
 Learn more about `involves` [here](https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests#search-by-a-user-thats-involved-in-an-issue-or-pull-request).
 
@@ -168,7 +168,7 @@ precommit_run
 
 When you create a pull request on this repository, various CI checks are run, towards the end of those checks there is a `release` job.
 
-Usually when running under `main`, this job is responsible for publishing new versions to the pypi. However when running under a pull request, this will create a special prerelease package specific to that pull reuqest.
+Usually when running under `main`, this job is responsible for publishing new versions to pypi. However when running under a pull request, this will create a special prerelease package specific to that pull reuqest.
 
 The versioning of this package follows [PEP-440](https://peps.python.org/pep-0440/#pre-releases) and will look something like this:
 
