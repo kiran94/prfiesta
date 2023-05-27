@@ -50,9 +50,11 @@ class GitHubCollector:
             before: Optional[datetime] = None,
             use_updated: Optional[bool] = False,
             use_involves: Optional[bool] = False,
+            use_reviewed_by: Optional[bool] = False,
+            use_review_requested: Optional[bool] = False,
         ) -> pd.DataFrame:
 
-        query = self._construct_query(users, after, before, use_updated, use_involves)
+        query = self._construct_query(users, after, before, use_updated, use_involves, use_reviewed_by, use_review_requested)
 
         update_spinner(f'Searching {self._url} with[bold blue] {query}', self._spinner,  logger)
 
@@ -92,6 +94,8 @@ class GitHubCollector:
             before: Optional[datetime] = None,
             use_updated: Optional[bool] = False,
             use_involves: Optional[bool] = False,
+            use_reviewed_by: Optional[bool] = False,
+            use_review_requested: Optional[bool] = False,
         ) -> str:
         """
         Constructs a GitHub Search Query
@@ -100,8 +104,12 @@ class GitHubCollector:
         Examples
         --------
             type:pr author:user1
-            type:pr author:user2 updated:<=2021-01-01
-            type:pr author:user1 author:user2 updated:2021-01-01..2021-03-01
+            type:pr author:user2 created:<=2021-01-01
+            type:pr author:user1 author:user2 created:2021-01-01..2021-03-01
+            type:pr author:user2 updated:>=2021-01-01
+            type:pr involves:user2
+            type:pr reviewed-by:user1
+            type:pr review-requested:user1
 
         All dates are inclusive.
         See GitHub Docs for full options https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests
@@ -112,11 +120,15 @@ class GitHubCollector:
         author_filter = 'author'
         if use_involves:
             author_filter = 'involves'
+        elif use_reviewed_by:
+            author_filter = 'reviewed-by'
+        elif use_review_requested:
+            author_filter = 'review-requested'
+
+        logger.debug('using author filter %s', author_filter)
 
         for u in users:
             query.append(f'{author_filter}:{u}')
-
-        logger.debug('using author filter %s', author_filter)
 
         time_filter = 'created'
         if use_updated:
