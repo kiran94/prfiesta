@@ -66,7 +66,7 @@ def test_main_missing_users() -> None:
     ),
     pytest.param
     (
-        ['--users', 'test_user', '--output_type', 'parquet'],
+        ['--users', 'test_user', '--output-type', 'parquet'],
         [call('test_user', after=None, before=None, use_updated=False, use_involves=False)],
         pd.DataFrame(
                 data=[(1, 2, 3)],
@@ -77,7 +77,7 @@ def test_main_missing_users() -> None:
     ),
     pytest.param
     (
-        ['--users', 'test_user', '--before', '2020-01-01', '--use_updated'],
+        ['--users', 'test_user', '--before', '2020-01-01', '--use-updated'],
         [call('test_user', before=datetime(2020, 1, 1), after=None, use_updated=True, use_involves=False)],
         pd.DataFrame(),
         'csv',
@@ -85,7 +85,7 @@ def test_main_missing_users() -> None:
     ),
     pytest.param
     (
-        ['--users', 'test_user', '--before', '2020-01-01', '--use_involves'],
+        ['--users', 'test_user', '--before', '2020-01-01', '--use-involves'],
         [call('test_user', before=datetime(2020, 1, 1), after=None, use_updated=False, use_involves=True)],
         pd.DataFrame(),
         'csv',
