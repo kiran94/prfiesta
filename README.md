@@ -8,6 +8,8 @@
 
 It can be used by engineers or managers to gain insights into all the great work the contributor has made over a specified period of time. A great use case of this tool is during a performance review process when you want to perform analysis on all the contributions made over the year.
 
+[![asciicast](https://asciinema.org/a/587987.svg)](https://asciinema.org/a/587987)
+
 ## Install
 
 ```bash
