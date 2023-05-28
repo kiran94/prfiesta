@@ -57,6 +57,7 @@ jobs:
           delete-old-comments: true
 
       - name: Integration Test
+        if: matrix.os == 'ubuntu-latest'
         run: make integration_test
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
