@@ -38,7 +38,8 @@ github_environment = GitHubEnvironment()
 @cloup.option_group(
     'output options',
     cloup.option('-o', '--output', default=None, help='The output location'),
-    cloup.option('-ot', '--output-type', type=click.Choice(['csv', 'parquet']), default='csv', show_default=True, show_choices=True, help='The output format'),
+    cloup.option(
+        '-ot', '--output-type', type=click.Choice(['csv', 'parquet', 'duckdb']), default='csv', show_default=True, show_choices=True, help='The output format'),
     cloup.option('-dc', '--drop-columns', multiple=True, help='Drop columns from the output dataframe'),
 )
 @cloup.option_group(

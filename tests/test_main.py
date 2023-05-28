@@ -33,7 +33,7 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
     assert 'the following parameters are mutually exclusive' in result.output
     assert result.exit_code == FAILURE_CODE
 
-@pytest.mark.parametrize(('params', 'expected_collect_params', 'collect_response', 'expected_output_type'), [
+@pytest.mark.parametrize(('params', 'expected_collect_params', 'collect_response', 'expected_output_type', 'expected_output'), [
 
     pytest.param
     (
@@ -41,6 +41,7 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
         [call('test_user', after=None, before=None, use_updated=False, use_involves=False, use_reviewed_by=False, use_review_requested=False)],
         pd.DataFrame(),
         'csv',
+        None,
         id='user_provided',
     ),
     pytest.param
@@ -49,6 +50,7 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
         [call('test_user', after=datetime(2020, 1, 1), before=None, use_updated=False, use_involves=False, use_reviewed_by=False, use_review_requested=False)],
         pd.DataFrame(),
         'csv',
+        None,
         id='with_after',
     ),
     pytest.param
@@ -57,6 +59,7 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
         [call('test_user', before=datetime(2020, 1, 1), after=None, use_updated=False, use_involves=False, use_reviewed_by=False, use_review_requested=False)],
         pd.DataFrame(),
         'csv',
+        None,
         id='with_before',
     ),
     pytest.param
@@ -72,6 +75,7 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
             use_review_requested=False)],
         pd.DataFrame(),
         'csv',
+        None,
         id='with_before_and_after',
     ),
     pytest.param
@@ -83,6 +87,7 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
                 columns=['col1', 'col2', 'col3'],
         ),
         'csv',
+        None,
         id='with_collected_responses',
     ),
     pytest.param
@@ -94,6 +99,7 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
                 columns=['col1', 'col2', 'col3'],
         ),
         'parquet',
+        None,
         id='with_parquet',
     ),
     pytest.param
@@ -102,6 +108,7 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
         [call('test_user', before=datetime(2020, 1, 1), after=None, use_updated=True, use_involves=False, use_reviewed_by=False, use_review_requested=False)],
         pd.DataFrame(),
         'csv',
+        None,
         id='with_use_updated',
     ),
     pytest.param
@@ -110,6 +117,7 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
         [call('test_user', before=datetime(2020, 1, 1), after=None, use_updated=False, use_involves=True, use_reviewed_by=False, use_review_requested=False)],
         pd.DataFrame(),
         'csv',
+        None,
         id='with_use_involves',
     ),
     pytest.param
@@ -118,6 +126,7 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
         [call('test_user', after=None, before=None, use_updated=False, use_involves=False, use_reviewed_by=True, use_review_requested=False)],
         pd.DataFrame(),
         'csv',
+        None,
         id='user_reviewed_by',
     ),
     pytest.param
@@ -126,7 +135,17 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
         [call('test_user', after=None, before=None, use_updated=False, use_involves=False, use_reviewed_by=False, use_review_requested=True)],
         pd.DataFrame(),
         'csv',
+        None,
         id='user_review_requested',
+    ),
+    pytest.param
+    (
+        ['--users', 'test_user', '--output-type', 'duckdb', '--output', 'my.duckdb'],
+        [call('test_user', after=None, before=None, use_updated=False, use_involves=False, use_reviewed_by=False, use_review_requested=False)],
+        pd.DataFrame(data={'a': [1, 2, 3]}),
+        'duckdb',
+        'my.duckdb',
+        id='with_duckdb',
     ),
 ])
 @patch('prfiesta.__main__.Spinner')
@@ -143,6 +162,7 @@ def test_main(
         expected_collect_params: List,
         collect_response: pd.DataFrame,
         expected_output_type: str,
+        expected_output: str,
     ) -> None:
 
     mock_collector.return_value.collect.return_value = collect_response
@@ -156,6 +176,7 @@ def test_main(
     assert mock_collector.return_value.collect.call_args_list == expected_collect_params
 
     if not collect_response.empty:
-        assert mock_output_frame.call_args_list == [call(collect_response, expected_output_type, spinner=mock_spinner.return_value, output_name=None)]
+        assert mock_output_frame.call_args_list \
+            == [call(collect_response, expected_output_type, spinner=mock_spinner.return_value, output_name=expected_output)]
 
     assert result.exit_code == 0
