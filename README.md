@@ -106,7 +106,7 @@ Learn more about `involves` [here](https://docs.github.com/en/search-github/sear
 
 #### User Reviewed
 
-`prfiesta` exposes a `--use-reviewed-by` flag which will collect pull requests where the user has reviewed others pull requests.
+`prfiesta` exposes a `--use-reviewed-by` flag which will collect pull requests where the user *has reviewed* other's pull requests.
 
 Learn more about searching review requests [here](https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests#search-by-pull-request-review-status-and-reviewer)
 
@@ -118,7 +118,7 @@ Learn more about searching review requests [here](https://docs.github.com/en/sea
 
 ### Date Filter
 
-When using the `--after` and `--before` date filters, by default `prfiesta` will use the `created` date dimension with these filters on the Git provider (e.g GitHub). This may not fit your use case and you may want to filter on when a pull request was updated instead. To do this you can use the `--use-updated` flag.
+When using the `--after` and `--before` date filters, by default `prfiesta` will use the `created` date dimension with these filters on the Git provider (e.g GitHub). This may not fit your use case and you may want to filter on when a pull request was `updated` instead. To do this you can use the `--use-updated` flag.
 
 Learn more about date filters [here](https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests#search-by-when-an-issue-or-pull-request-was-created-or-last-updated).
 
@@ -190,7 +190,7 @@ precommit_run
 
 When you create a pull request on this repository, various CI checks are run, towards the end of those checks there is a `release` job.
 
-Usually when running under `main`, this job is responsible for publishing new versions to pypi. However when running under a pull request, this will create a special prerelease package specific to that pull reuqest.
+Usually when running under `main`, this job is responsible for publishing new versions to pypi. However when running under a pull request, this will create a special prerelease package specific to that pull request.
 
 The versioning of this package follows [PEP-440](https://peps.python.org/pep-0440/#pre-releases) and will look something like this:
 
