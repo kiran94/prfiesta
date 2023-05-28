@@ -1,5 +1,5 @@
 from datetime import datetime
-from unittest.mock import ANY, Mock, call
+from unittest.mock import ANY, Mock, call, patch
 
 import pytest
 
@@ -40,3 +40,19 @@ def test_output_frame_unknown_type() -> None:
 
     with pytest.raises(ValueError, match='unknown output_type'):
         output_frame(mock_frame, 'unknown_type', mock_spinner, timestamp=datetime(2021, 1, 1))
+
+@patch('prfiesta.output.duckdb')
+def test_output_duckdb(mock_duckdb: Mock) -> None:
+
+    mock_frame: Mock = Mock()
+    mock_spinner: Mock = Mock()
+
+    mock_duckdb_connection = Mock()
+    mock_duckdb.connect.return_value = mock_duckdb_connection
+
+    timestamp = datetime(2021, 1, 1)
+    output_frame(mock_frame, 'duckdb', mock_spinner, timestamp=timestamp)
+
+    assert mock_duckdb.connect.called
+    assert mock_duckdb_connection.execute.call_args_list == [call('CREATE TABLE prfiesta_20210101_000000 AS SELECT * FROM frame')]
+    assert mock_duckdb_connection.close.called

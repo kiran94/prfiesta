@@ -29,6 +29,7 @@ seaborn = "^0.12.2"
 matplotlib = "^3.7.1"
 natural = "^0.2.0"
 urllib3 = "<2"
+duckdb = "^0.8.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.3.1"
