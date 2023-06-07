@@ -89,7 +89,7 @@ _now = datetime.now(timezone.utc)
             'number': [1, 2],
             'title': ['title', 'title2'],
             'repository_name': ['repository', 'repository'],
-                     'updated_at': [datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S%z'), datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S%z')],
+            'updated_at': [datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S%z'), datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S%z')],
             'html_url': ['url1', 'url2'],
          }),
         {'as_frame': True},
