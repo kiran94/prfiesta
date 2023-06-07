@@ -23,6 +23,7 @@ def view_pull_requests(data: pd.DataFrame, **kwargs) -> DisplayObject:
     temp = _enrich_pr_link(temp)
 
     if relative_dates:
+        temp['updated_at'] = pd.to_datetime(temp['updated_at'])
         temp['updated_at'] = temp['updated_at'].apply(duration, now=datetime.now(timezone.utc))
 
     if head:
