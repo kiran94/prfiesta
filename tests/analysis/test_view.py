@@ -83,6 +83,24 @@ _now = datetime.now(timezone.utc)
         }),
         id='html_default',
     ),
+    pytest.param(
+        pd.DataFrame(data =
+        {
+            'number': [1, 2],
+            'title': ['title', 'title2'],
+            'repository_name': ['repository', 'repository'],
+            'updated_at': [datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S%z'), datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S%z')],
+            'html_url': ['url1', 'url2'],
+         }),
+        {'as_frame': True},
+        pd.DataFrame(data={
+            'number': [1, 2],
+            'title': ['<a href="url1">title</a>', '<a href="url2">title2</a>'],
+            'repository_name': ['repository']*2,
+            'updated_at': ['just now']*2,
+        }),
+        id='string_datetime',
+    ),
 ])
 @patch('prfiesta.analysis.view.HTML')
 def test_view_pull_request(
