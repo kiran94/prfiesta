@@ -24,7 +24,7 @@ def output_frame(
         timestamp = datetime.now()
 
     if not output_name:
-        output_name = f"export.{timestamp.strftime('%Y-%m-%d_%H:%M:%S')}.{output_type}"
+        output_name = f"export.{timestamp.strftime('%Y%m%d%H%M%S')}.{output_type}"
 
     update_spinner(f'Writing export to {output_name}', spinner, logger)
 
