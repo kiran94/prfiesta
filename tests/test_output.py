@@ -58,17 +58,17 @@ def test_output_duckdb(mock_duckdb: Mock) -> None:
     assert mock_duckdb_connection.close.called
 
 @pytest.mark.parametrize('filename',[
-    "illegal:filename.csv",
-    "<illegalfilename.csv",
-    "illegalfilename.csv>",
-    "illegal\"filename.csv",
-    "/illegalfilename.csv",
-    "illegalfilename.\\csv",
-    "illegalfilename|.csv",
-    "*illegalfilename.csv",
-    "illegalfilename.csv?",
+    'illegal:filename.csv',
+    '<illegalfilename.csv',
+    'illegalfilename.csv>',
+    'illegal\"filename.csv',
+    '/illegalfilename.csv',
+    'illegalfilename.\\csv',
+    'illegalfilename|.csv',
+    '*illegalfilename.csv',
+    'illegalfilename.csv?',
 ])
 @patch('os.name', 'nt')
-def test_output_illegal_filename_windows(filename) -> None:
+def test_output_illegal_filename_windows(filename: str) -> None:
     with pytest.raises(ValueError, match='is an invalid filename on windows'):
         output_frame(frame=Mock(), output_type='csv', spinner=Mock(), output_name=filename, timestamp=datetime(2021, 1, 1))
