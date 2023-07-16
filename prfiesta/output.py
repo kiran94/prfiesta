@@ -1,6 +1,8 @@
 import logging
+import re
 from datetime import datetime
 from typing import Literal
+import os
 
 import duckdb
 import pandas as pd
@@ -11,7 +13,7 @@ from prfiesta.spinner import update_spinner
 logger = logging.getLogger(__name__)
 
 OUTPUT_TYPE = Literal['csv', 'parquet', 'duckdb']
-
+WIN_ILLEGAL_FILENAME = r"[:\/\\\*\?\"\<\>\|]"
 
 def output_frame(
         frame: pd.DataFrame,
@@ -25,6 +27,9 @@ def output_frame(
 
     if not output_name:
         output_name = f"export.{timestamp.strftime('%Y%m%d%H%M%S')}.{output_type}"
+
+    if os.name == 'nt' and re.search(WIN_ILLEGAL_FILENAME, output_name):
+        raise ValueError(f"{output_name} is an invalid filename on windows")        
 
     update_spinner(f'Writing export to {output_name}', spinner, logger)
 
