@@ -22,10 +22,10 @@ def test_output_frame(output_type: str, timestamp: datetime) -> None:
     assert mock_spinner.update.called
 
     if timestamp and output_type == 'csv':
-        assert [call('export.2021-01-01_00:00:00.csv', index=False)] == mock_frame.to_csv.call_args_list
+        assert [call('export.20210101000000.csv', index=False)] == mock_frame.to_csv.call_args_list
 
     elif timestamp and output_type == 'parquet':
-        assert [call('export.2021-01-01_00:00:00.parquet', index=False)] == mock_frame.to_parquet.call_args_list
+        assert [call('export.20210101000000.parquet', index=False)] == mock_frame.to_parquet.call_args_list
 
     elif not timestamp and output_type == 'csv':
         assert [call(ANY, index=False)] == mock_frame.to_csv.call_args_list
@@ -56,3 +56,19 @@ def test_output_duckdb(mock_duckdb: Mock) -> None:
     assert mock_duckdb.connect.called
     assert mock_duckdb_connection.execute.call_args_list == [call('CREATE TABLE prfiesta_20210101_000000 AS SELECT * FROM frame')]
     assert mock_duckdb_connection.close.called
+
+@pytest.mark.parametrize('filename',[
+    'illegal:filename.csv',
+    '<illegalfilename.csv',
+    'illegalfilename.csv>',
+    'illegal\"filename.csv',
+    '/illegalfilename.csv',
+    'illegalfilename.\\csv',
+    'illegalfilename|.csv',
+    '*illegalfilename.csv',
+    'illegalfilename.csv?',
+])
+@patch('os.name', 'nt')
+def test_output_illegal_filename_windows(filename: str) -> None:
+    with pytest.raises(ValueError, match='is an invalid filename on windows'):
+        output_frame(frame=Mock(), output_type='csv', spinner=Mock(), output_name=filename, timestamp=datetime(2021, 1, 1))
