@@ -44,7 +44,7 @@ def output_frame(
         conn = duckdb.connect(output_name)
 
         update_spinner(f"exporting to duckdb table {duckdb_table}", spinner, logger)
-        conn.execute(f"CREATE TABLE {duckdb_table} AS SELECT * FROM frame")  # noqa: duckdb_table is always constructed internally
+        conn.execute(f"CREATE TABLE {duckdb_table} AS SELECT * FROM frame")  # noqa: S608 duckdb_table is always constructed internally
 
         conn.close()
     else:
