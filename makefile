@@ -7,6 +7,7 @@ lint:
 	poetry run ruff check $(if $(GITHUB_ACTIONS),--format github,) .
 
 format:
+	poetry run ruff format .
 	poetry run ruff check --fix .
 
 coverage:
