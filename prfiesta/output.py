@@ -17,7 +17,11 @@ WIN_ILLEGAL_FILENAME = r"[:\/\\\*\?\"\<\>\|]"
 
 
 def output_frame(
-    frame: pd.DataFrame, output_type: OUTPUT_TYPE, spinner: Spinner, output_name: Optional[str] = None, timestamp: Optional[datetime] = None
+    frame: pd.DataFrame,
+    output_type: OUTPUT_TYPE,
+    spinner: Spinner,
+    output_name: Optional[str] = None,
+    timestamp: Optional[datetime] = None,
 ) -> None:
     if not timestamp:
         timestamp = datetime.now()
