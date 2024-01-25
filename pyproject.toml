@@ -114,6 +114,7 @@ ignore = [
     "ISC001",  # disable to avoid conflict with formatter
     "Q000",    # disable to avoid conflict with formatter
     "Q003",    # disable to avoid conflict with formatter
+    "RET504",  # sometimes decreases code readability
 ]
 
 [tool.ruff.flake8-quotes]
