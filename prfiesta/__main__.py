@@ -20,7 +20,7 @@ github_environment = GitHubEnvironment()
 @cloup.command()
 @cloup.option_group(
     "general options",
-    cloup.option("-u", "--users", required=True, multiple=True, help="The GitHub Users to search for. Can be multiple"),
+    cloup.option("-u", "--users", multiple=True, help="The GitHub Users to search for. Can be multiple"),
 )
 @cloup.option_group(
     "date filter options",

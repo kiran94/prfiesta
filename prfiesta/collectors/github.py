@@ -42,7 +42,7 @@ class GitHubCollector:
 
     def collect(
         self,
-        *users: Tuple[str],
+        *users: Optional[Tuple[str]],
         after: Optional[datetime] = None,
         before: Optional[datetime] = None,
         use_updated: Optional[bool] = False,
@@ -84,7 +84,7 @@ class GitHubCollector:
 
     @staticmethod
     def _construct_query(
-        users: List[str],
+        users: Optional[List[str]],
         after: Optional[datetime] = None,
         before: Optional[datetime] = None,
         use_updated: Optional[bool] = False,
