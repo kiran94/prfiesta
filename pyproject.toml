@@ -112,10 +112,5 @@ ignore = [
     "PLR0913", # ignore for test cases with high level of paramtatization
     "COM812",  # disable to avoid conflict with formatter
     "ISC001",  # disable to avoid conflict with formatter
-    "Q000",    # disable to avoid conflict with formatter
-    "Q003",    # disable to avoid conflict with formatter
     "RET504",  # sometimes decreases code readability
 ]
-
-[tool.ruff.flake8-quotes]
-inline-quotes = "single"
