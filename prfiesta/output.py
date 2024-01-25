@@ -2,7 +2,7 @@ import logging
 import os
 import re
 from datetime import datetime
-from typing import Literal
+from typing import Literal, Optional
 
 import duckdb
 import pandas as pd
@@ -16,7 +16,9 @@ OUTPUT_TYPE = Literal["csv", "parquet", "duckdb"]
 WIN_ILLEGAL_FILENAME = r"[:\/\\\*\?\"\<\>\|]"
 
 
-def output_frame(frame: pd.DataFrame, output_type: OUTPUT_TYPE, spinner: Spinner, output_name: str = None, timestamp: datetime = None) -> None:
+def output_frame(
+    frame: pd.DataFrame, output_type: OUTPUT_TYPE, spinner: Spinner, output_name: Optional[str] = None, timestamp: Optional[datetime] = None
+) -> None:
     if not timestamp:
         timestamp = datetime.now()
 
