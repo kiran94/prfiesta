@@ -41,7 +41,7 @@ jupyter-black = "^0.3.4"
 ipywidgets = "^8.0.6"
 pre-commit = "^3.3.2"
 papermill = "^2.4.0"
-ruff = "^0.0.270"
+ruff = "^0.1.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -105,12 +105,12 @@ select = [
 ]
 
 ignore = [
-    "S101",   # asserts are used in unit tests
-    "EM101",  # not a big deal if the error message is duplicated in the traceback
-    "ANN101", # ignore missing type annotation on self
-    "ANN003", # ignore missing type annotations on **kwargs
-    "PLR0913" # ignore for test cases with high level of paramtatization
+    "S101",    # asserts are used in unit tests
+    "EM101",   # not a big deal if the error message is duplicated in the traceback
+    "ANN101",  # ignore missing type annotation on self
+    "ANN003",  # ignore missing type annotations on **kwargs
+    "PLR0913", # ignore for test cases with high level of paramtatization
+    "COM812",  # disable to avoid conflict with formatter
+    "ISC001",  # disable to avoid conflict with formatter
+    "RET504",  # sometimes decreases code readability
 ]
-
-[tool.ruff.flake8-quotes]
-inline-quotes = "single"

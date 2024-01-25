@@ -4,9 +4,10 @@ test:
 	poetry run pytest -vv
 
 lint:
-	poetry run ruff check $(if $(GITHUB_ACTIONS),--format github,) .
+	poetry run ruff check $(if $(GITHUB_ACTIONS),--output-format github,) .
 
 format:
+	poetry run ruff format .
 	poetry run ruff check --fix .
 
 coverage:
