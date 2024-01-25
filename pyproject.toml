@@ -105,11 +105,15 @@ select = [
 ]
 
 ignore = [
-    "S101",   # asserts are used in unit tests
-    "EM101",  # not a big deal if the error message is duplicated in the traceback
-    "ANN101", # ignore missing type annotation on self
-    "ANN003", # ignore missing type annotations on **kwargs
-    "PLR0913" # ignore for test cases with high level of paramtatization
+    "S101",    # asserts are used in unit tests
+    "EM101",   # not a big deal if the error message is duplicated in the traceback
+    "ANN101",  # ignore missing type annotation on self
+    "ANN003",  # ignore missing type annotations on **kwargs
+    "PLR0913", # ignore for test cases with high level of paramtatization
+    "COM812",  # disable to avoid conflict with formatter
+    "ISC001",  # disable to avoid conflict with formatter
+    "Q000",    # disable to avoid conflict with formatter
+    "Q003",    # disable to avoid conflict with formatter
 ]
 
 [tool.ruff.flake8-quotes]
