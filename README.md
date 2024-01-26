@@ -62,6 +62,9 @@ prfiesta -u charliermarsh --after 2023-05-01 --use-reviewed-by
 # Get all pull requests where the user was requested a review rather then being the author
 prfiesta -u charliermarsh --after 2023-05-01 --use-review-requested
 
+# Get all pull requests which contains a reference (e.g JIRA card reference) within the PR title or body
+prfiesta --reference PA-12765
+
 # Get help
 prfiesta --help
 
