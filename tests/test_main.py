@@ -247,6 +247,24 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
             "my.duckdb",
             id="with_duckdb",
         ),
+        pytest.param(
+            ["--reference", "JIRA-1234"],
+            [
+                call(
+                    after=None,
+                    before=None,
+                    use_updated=False,
+                    use_involves=False,
+                    use_reviewed_by=False,
+                    use_review_requested=False,
+                    reference="JIRA-1234",
+                )
+            ],
+            pd.DataFrame(data={"a": [1, 2, 3]}),
+            "csv",
+            None,
+            id="with_reference",
+        ),
     ],
 )
 @patch("prfiesta.__main__.Spinner")
