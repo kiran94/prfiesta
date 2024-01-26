@@ -161,7 +161,7 @@ See this [Notebook](https://github.com/kiran94/prfiesta/blob/main/notebooks/misc
 
 | Variable                  | Description                                                                                                                                  | Default                  |
 | ---------------           | ---------------                                                                                                                              | ------                   |
-| `GITHUB_TOKEN`            | The Github [`Token`](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) to use |                          |
+| `GITHUB_TOKEN`            | The Github [`Token`](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) to use. Must have the `repo` scope. |                          |
 | `GITHUB_ENTERPRISE_TOKEN` | Takes precedence over `GITHUB_TOKEN` when set                                                                                                |                          |
 | `GH_HOST`                 | The Github Host to communicate with (Override this with your company's GitHub Enterprise server if needed)                                   | `https://api.github.com` |
 | `LOGGING_LEVEL`           | The [Logging Level](https://docs.python.org/3/library/logging.html#logging-levels) to use                                                    | `INFO`                   |
