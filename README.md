@@ -131,6 +131,15 @@ When using the `--after` and `--before` date filters, by default `prfiesta` will
 
 Learn more about date filters [here](https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests#search-by-when-an-issue-or-pull-request-was-created-or-last-updated).
 
+### Reference Search
+
+You may come across a use case where you want to filter pull requests on a specific reference. For example, it may be a team practise to put a JIRA card reference within the pull request title or body.
+
+For this you can use the `--reference` filter.
+
+> [!NOTE]
+> Results from reference search is entirely up to the GitHub Search API. On some ocassions, it may not provide inaccurate results.
+
 ## Analysis
 
 `prfiesta` ships with built in plots to help analyze your pull request data. These serve as a starting point in your analysis. See more information on the build in plots and views [here](https://github.com/kiran94/prfiesta/blob/main/docs/analysis.md).
