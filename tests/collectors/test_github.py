@@ -148,6 +148,13 @@ _mock_issue2.__dict__ = {
             "type:pr review-requested:user1 review-requested:user2",
             id="review_requested_user",
         ),
+        pytest.param(
+            (),
+            {"reference": "JIRA-1234"},
+            [_mock_issue1, _mock_issue2],
+            'type:pr in:title,body "JIRA-1234"',
+            id="reference",
+        ),
     ],
 )
 @patch("prfiesta.collectors.github.Github")
