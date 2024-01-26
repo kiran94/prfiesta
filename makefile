@@ -29,6 +29,9 @@ precommit_install:
 precommit_run:
 	pre-commit run --all-files
 
+notebook:
+	poetry run python -m jupyterlab
+
 validate_notebooks:
 	poetry run bash ./notebooks/scripts/run_all.sh './notebooks/plots/*.ipynb' 'notebooks/plots'
 	poetry run bash ./notebooks/scripts/run_all.sh './notebooks/views/*.ipynb' 'notebooks/views'
