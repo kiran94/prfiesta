@@ -21,6 +21,7 @@ github_environment = GitHubEnvironment()
 @cloup.option_group(
     "general options",
     cloup.option("-u", "--users", multiple=True, help="The GitHub Users to search for. Can be multiple"),
+    cloup.option("--reference", help="A external ticket reference to search for e.g. JIRA-1234"),
 )
 @cloup.option_group(
     "date filter options",
@@ -69,6 +70,7 @@ def main(**kwargs) -> None:
     use_involves: bool = kwargs.get("use_involves")
     use_reviewed_by: bool = kwargs.get("use_reviewed_by")
     use_review_requested: bool = kwargs.get("use_review_requested")
+    reference: str = kwargs.get("reference")
 
     logger.info("[bold green]PR Fiesta 🦜🥳")
 
@@ -84,6 +86,7 @@ def main(**kwargs) -> None:
             use_involves=use_involves,
             use_reviewed_by=use_reviewed_by,
             use_review_requested=use_review_requested,
+            reference=reference,
         )
 
         if not pr_frame.empty:
