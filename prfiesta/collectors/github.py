@@ -42,15 +42,16 @@ class GitHubCollector:
 
     def collect(
         self,
-        *users: Tuple[str],
+        *users: Optional[Tuple[str]],
         after: Optional[datetime] = None,
         before: Optional[datetime] = None,
         use_updated: Optional[bool] = False,
         use_involves: Optional[bool] = False,
         use_reviewed_by: Optional[bool] = False,
         use_review_requested: Optional[bool] = False,
+        reference: Optional[str] = None,
     ) -> pd.DataFrame:
-        query = self._construct_query(users, after, before, use_updated, use_involves, use_reviewed_by, use_review_requested)
+        query = self._construct_query(users, after, before, use_updated, use_involves, use_reviewed_by, use_review_requested, reference)
 
         update_spinner(f"Searching {self._url} with[bold blue] {query}", self._spinner, logger)
 
@@ -84,13 +85,14 @@ class GitHubCollector:
 
     @staticmethod
     def _construct_query(
-        users: List[str],
+        users: Optional[List[str]],
         after: Optional[datetime] = None,
         before: Optional[datetime] = None,
         use_updated: Optional[bool] = False,
         use_involves: Optional[bool] = False,
         use_reviewed_by: Optional[bool] = False,
         use_review_requested: Optional[bool] = False,
+        reference: Optional[str] = None,
     ) -> str:
         """
         Constructs a GitHub Search Query
@@ -105,6 +107,7 @@ class GitHubCollector:
             type:pr involves:user2
             type:pr reviewed-by:user1
             type:pr review-requested:user1
+            type:pr in:title,body "PA-12765"
 
         All dates are inclusive.
         See GitHub Docs for full options https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests
@@ -137,6 +140,9 @@ class GitHubCollector:
             query.append(f"{time_filter}:<={before.strftime('%Y-%m-%d')}")
         elif after:
             query.append(f"{time_filter}:>={after.strftime('%Y-%m-%d')}")
+
+        if reference:
+            query.append(f'in:title,body "{reference}"')
 
         return " ".join(query)
 

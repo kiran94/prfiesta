@@ -12,14 +12,6 @@ from prfiesta.__main__ import main
 FAILURE_CODE = 2
 
 
-def test_main_missing_users() -> None:
-    runner = CliRunner()
-    result = runner.invoke(main, [""])
-
-    assert "Missing option '-u' / '--users'" in result.output
-    assert result.exit_code == FAILURE_CODE
-
-
 @pytest.mark.parametrize(
     "arguments",
     [
@@ -42,7 +34,18 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
     [
         pytest.param(
             ["--users", "test_user"],
-            [call("test_user", after=None, before=None, use_updated=False, use_involves=False, use_reviewed_by=False, use_review_requested=False)],
+            [
+                call(
+                    "test_user",
+                    after=None,
+                    before=None,
+                    use_updated=False,
+                    use_involves=False,
+                    use_reviewed_by=False,
+                    use_review_requested=False,
+                    reference=None,
+                )
+            ],
             pd.DataFrame(),
             "csv",
             None,
@@ -59,6 +62,7 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
                     use_involves=False,
                     use_reviewed_by=False,
                     use_review_requested=False,
+                    reference=None,
                 ),
             ],
             pd.DataFrame(),
@@ -77,6 +81,7 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
                     use_involves=False,
                     use_reviewed_by=False,
                     use_review_requested=False,
+                    reference=None,
                 ),
             ],
             pd.DataFrame(),
@@ -95,6 +100,7 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
                     use_involves=False,
                     use_reviewed_by=False,
                     use_review_requested=False,
+                    reference=None,
                 ),
             ],
             pd.DataFrame(),
@@ -104,7 +110,18 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
         ),
         pytest.param(
             ["--users", "test_user"],
-            [call("test_user", after=None, before=None, use_updated=False, use_involves=False, use_reviewed_by=False, use_review_requested=False)],
+            [
+                call(
+                    "test_user",
+                    after=None,
+                    before=None,
+                    use_updated=False,
+                    use_involves=False,
+                    use_reviewed_by=False,
+                    use_review_requested=False,
+                    reference=None,
+                )
+            ],
             pd.DataFrame(
                 data=[(1, 2, 3)],
                 columns=["col1", "col2", "col3"],
@@ -115,7 +132,18 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
         ),
         pytest.param(
             ["--users", "test_user", "--output-type", "parquet"],
-            [call("test_user", after=None, before=None, use_updated=False, use_involves=False, use_reviewed_by=False, use_review_requested=False)],
+            [
+                call(
+                    "test_user",
+                    after=None,
+                    before=None,
+                    use_updated=False,
+                    use_involves=False,
+                    use_reviewed_by=False,
+                    use_review_requested=False,
+                    reference=None,
+                )
+            ],
             pd.DataFrame(
                 data=[(1, 2, 3)],
                 columns=["col1", "col2", "col3"],
@@ -135,6 +163,7 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
                     use_involves=False,
                     use_reviewed_by=False,
                     use_review_requested=False,
+                    reference=None,
                 ),
             ],
             pd.DataFrame(),
@@ -153,6 +182,7 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
                     use_involves=True,
                     use_reviewed_by=False,
                     use_review_requested=False,
+                    reference=None,
                 ),
             ],
             pd.DataFrame(),
@@ -162,7 +192,18 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
         ),
         pytest.param(
             ["--users", "test_user", "--use-reviewed-by"],
-            [call("test_user", after=None, before=None, use_updated=False, use_involves=False, use_reviewed_by=True, use_review_requested=False)],
+            [
+                call(
+                    "test_user",
+                    after=None,
+                    before=None,
+                    use_updated=False,
+                    use_involves=False,
+                    use_reviewed_by=True,
+                    use_review_requested=False,
+                    reference=None,
+                )
+            ],
             pd.DataFrame(),
             "csv",
             None,
@@ -170,7 +211,18 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
         ),
         pytest.param(
             ["--users", "test_user", "--use-review-requested"],
-            [call("test_user", after=None, before=None, use_updated=False, use_involves=False, use_reviewed_by=False, use_review_requested=True)],
+            [
+                call(
+                    "test_user",
+                    after=None,
+                    before=None,
+                    use_updated=False,
+                    use_involves=False,
+                    use_reviewed_by=False,
+                    use_review_requested=True,
+                    reference=None,
+                )
+            ],
             pd.DataFrame(),
             "csv",
             None,
@@ -178,11 +230,40 @@ def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
         ),
         pytest.param(
             ["--users", "test_user", "--output-type", "duckdb", "--output", "my.duckdb"],
-            [call("test_user", after=None, before=None, use_updated=False, use_involves=False, use_reviewed_by=False, use_review_requested=False)],
+            [
+                call(
+                    "test_user",
+                    after=None,
+                    before=None,
+                    use_updated=False,
+                    use_involves=False,
+                    use_reviewed_by=False,
+                    use_review_requested=False,
+                    reference=None,
+                )
+            ],
             pd.DataFrame(data={"a": [1, 2, 3]}),
             "duckdb",
             "my.duckdb",
             id="with_duckdb",
+        ),
+        pytest.param(
+            ["--reference", "JIRA-1234"],
+            [
+                call(
+                    after=None,
+                    before=None,
+                    use_updated=False,
+                    use_involves=False,
+                    use_reviewed_by=False,
+                    use_review_requested=False,
+                    reference="JIRA-1234",
+                )
+            ],
+            pd.DataFrame(data={"a": [1, 2, 3]}),
+            "csv",
+            None,
+            id="with_reference",
         ),
     ],
 )
