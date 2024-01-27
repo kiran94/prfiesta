@@ -5,7 +5,7 @@ from unittest.mock import Mock, patch
 import pandas as pd
 import pytest
 
-from prfiesta.analysis.view import view_pull_requests
+from prfiesta.analysis.view import view_pr_cycle, view_pull_requests
 
 _now = datetime.now(timezone.utc)
 
@@ -125,6 +125,87 @@ def test_view_pull_request(mock_html: Mock, data: pd.DataFrame, options: Dict, e
     mock_html.return_value = "DUMMY"
 
     result = view_pull_requests(data, **options)
+
+    if "as_frame" in options and options["as_frame"]:
+        pd.testing.assert_frame_equal(expected, result)
+    else:
+        assert mock_html.called
+        assert result == mock_html.return_value
+
+
+@pytest.mark.parametrize(
+    ("data", "options", "expected"),
+    [
+        pytest.param(
+            pd.DataFrame(
+                data={
+                    "number": [1, 2],
+                    "title": ["title", "title2"],
+                    "repository_name": ["repository", "repository"],
+                    "created_at": [
+                        datetime(2023, 1, 15, 8, 15, 0).strftime("%Y-%m-%d %H:%M:%S%z"),
+                        datetime(2023, 1, 1, 15, 0, 0).strftime("%Y-%m-%d %H:%M:%S%z"),
+                    ],
+                    "pull_request.merged_at": [
+                        datetime(2023, 1, 15, 8, 30, 0).strftime("%Y-%m-%d %H:%M:%S%z"),  # 30mins
+                        datetime(2023, 1, 2, 11, 0, 0).strftime("%Y-%m-%d %H:%M:%S%z"),  # 20 hours
+                    ],
+                    "html_url": ["url1", "url2"],
+                },
+            ),
+            {"as_frame": True},
+            pd.DataFrame(
+                data={
+                    "number": [1, 2],
+                    "title": ["title", "title2"],
+                    "repository_name": ["repository", "repository"],
+                    "html_url": ["url1", "url2"],
+                    "created_at": [
+                        datetime(2023, 1, 15, 8, 15, 0),
+                        datetime(2023, 1, 1, 15, 0, 0),
+                    ],
+                    "pull_request.merged_at": [
+                        datetime(2023, 1, 15, 8, 30, 0),
+                        datetime(2023, 1, 2, 11, 0, 0),
+                    ],
+                    "cycle_time": [
+                        datetime(2023, 1, 15, 8, 30, 0) - datetime(2023, 1, 15, 8, 15, 0),
+                        datetime(2023, 1, 2, 11, 0, 0) - datetime(2023, 1, 1, 15, 0, 0),
+                    ],
+                    "cycle_time_mins": [15.0, 1200.0],
+                    "cycle_time_hours": [0.25, 20.0],
+                }
+            ),
+            id="as_frame_true",
+        ),
+        pytest.param(
+            pd.DataFrame(
+                data={
+                    "number": [1, 2],
+                    "title": ["title", "title2"],
+                    "repository_name": ["repository", "repository"],
+                    "created_at": [
+                        datetime(2023, 1, 15, 8, 15, 0).strftime("%Y-%m-%d %H:%M:%S%z"),
+                        datetime(2023, 1, 1, 15, 0, 0).strftime("%Y-%m-%d %H:%M:%S%z"),
+                    ],
+                    "pull_request.merged_at": [
+                        datetime(2023, 1, 15, 8, 30, 0).strftime("%Y-%m-%d %H:%M:%S%z"),  # 30mins
+                        datetime(2023, 1, 2, 11, 0, 0).strftime("%Y-%m-%d %H:%M:%S%z"),  # 20 hours
+                    ],
+                    "html_url": ["url1", "url2"],
+                },
+            ),
+            {"as_frame": False},
+            pd.DataFrame(),
+            id="as_frame_false",
+        ),
+    ],
+)
+@patch("prfiesta.analysis.view.HTML")
+def test_view_pr_cycle(mock_html: Mock, data: pd.DataFrame, options: Dict, expected: pd.DataFrame) -> None:
+    mock_html.return_value = "DUMMY"
+
+    result = view_pr_cycle(data, **options)
 
     if "as_frame" in options and options["as_frame"]:
         pd.testing.assert_frame_equal(expected, result)

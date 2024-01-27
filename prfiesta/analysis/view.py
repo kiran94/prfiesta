@@ -32,3 +32,22 @@ def view_pull_requests(data: pd.DataFrame, **kwargs) -> DisplayObject:
         return temp
 
     return HTML(temp.to_html(escape=False, index=False))
+
+
+def view_pr_cycle(data: pd.DataFrame, **kwargs) -> DisplayObject:
+    as_frame: bool = kwargs.get("as_frame", False)
+
+    temp = data[["number", "title", "repository_name", "html_url", "created_at", "pull_request.merged_at"]].copy()
+
+    temp["created_at"] = pd.to_datetime(temp["created_at"])
+    temp["pull_request.merged_at"] = pd.to_datetime(temp["pull_request.merged_at"])
+
+    temp["cycle_time"] = temp["pull_request.merged_at"] - temp["created_at"]
+    temp["cycle_time_mins"] = temp["cycle_time"].dt.seconds / 60
+    temp["cycle_time_hours"] = temp["cycle_time"].dt.seconds / 60 / 60
+
+    if as_frame:
+        return temp
+
+    temp = _enrich_pr_link(temp)
+    return HTML(temp.to_html(escape=False, index=False))
