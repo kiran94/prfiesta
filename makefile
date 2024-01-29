@@ -32,6 +32,9 @@ precommit_run:
 notebook:
 	poetry run python -m jupyterlab
 
+notebook_web:
+	voila --theme=dark
+
 validate_notebooks:
 	poetry run bash ./notebooks/scripts/run_all.sh './notebooks/plots/*.ipynb' 'notebooks/plots'
 	poetry run bash ./notebooks/scripts/run_all.sh './notebooks/views/*.ipynb' 'notebooks/views'
