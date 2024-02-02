@@ -27,6 +27,7 @@ _mock_issue1.__dict__ = {
         "milestone.updated_at": datetime(2021, 1, 1),
         "milestone.due_on": datetime(2021, 1, 1),
         "milestone.closed_at": datetime(2021, 1, 1),
+        "pull_request.merged_at": datetime(2021, 1, 1),
     },
 }
 
@@ -188,7 +189,7 @@ def test_collect(
     assert mock_github.return_value.search_issues.call_args_list == [call(query=expected_github_query)]
 
     # Ensure the rows and columns came as expected
-    assert returned.shape == (2, 16)
+    assert returned.shape == (2, 17)
 
     # Ensure none of the drop columns came through
     assert not set(gc._drop_columns).intersection(set(returned.columns.tolist()))

@@ -34,11 +34,7 @@ class GitHubCollector:
             "comments_url",
             "events_url",
         ]
-        self._datetime_columns = [
-            "created_at",
-            "updated_at",
-            "closed_at",
-        ]
+        self._datetime_columns = ["created_at", "updated_at", "closed_at", "pull_request.merged_at"]
 
     def collect(
         self,

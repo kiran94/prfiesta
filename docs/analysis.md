@@ -6,9 +6,10 @@ prfiesta ships with built in plots to help analyze your pull request data. These
 
 ## Built In Views
 
-| View                                       | Description                                                                                                                  | Sample                                              |
-| ---------------                            | ---------------                                                                                                              | -------------                                       |
+| View                                        | Description                                                                                                                  | Sample                                              |
+| ---------------                             | ---------------                                                                                                              | -------------                                       |
 | `prfiesta.analysis.view.view_pull_requests` | Produces a table of pull requests which summarizes contribution. Each pull request is linked to enable further investigation | [Link](../notebooks/views/view_pull_requests.ipynb) |
+| `prfiesta.analysis.view.view_pr_cycle`      | Produces a table of pull request cycle times. Each pull request is linked to enable further investigation                    | [Link](../notebooks/views/pr_cycle.ipynb)           |
 
 ## Built In Plots
 
