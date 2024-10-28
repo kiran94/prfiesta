@@ -17,8 +17,7 @@ jobs:
       fail-fast: false
       matrix:
         # https://devguide.python.org/versions/#supported-versions
-        # python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
-        python-version: ['3.9']
+        python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
         poetry-version: ['1.4.2']
         os: [ubuntu-latest] # , windows-latest
     steps:
