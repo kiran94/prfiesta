@@ -18,7 +18,7 @@ python -m pip install prfiesta
 
 Dependencies:
 
-- Python 3.8+
+- Python 3.9+
 
 ## Usage
 
