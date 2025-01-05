@@ -160,7 +160,7 @@ class GitHubCollector:
 
     def _parse_datetime_columns(self, df: pd.DataFrame) -> pd.DataFrame:
         for col in self._datetime_columns:
-            df[col] = pd.to_datetime(df[col], errors="ignore")
+            df[col] = pd.to_datetime(df[col], errors="coerce")
         return df
 
 
