@@ -16,6 +16,12 @@ It can be used by engineers or managers to gain insights into all the great work
 python -m pip install prfiesta
 ```
 
+> [!TIP]
+> If you are using [`uvx`](https://docs.astral.sh/uv/guides/tools/) then you can also just run this:
+> ```bash
+> uvx prfiesta --help
+> ```
+
 Dependencies:
 
 - Python 3.9+
