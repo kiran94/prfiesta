@@ -40,3 +40,9 @@ clean:
 	rm -rf ./htmlcov
 	rm -rf ./.pytest_cache
 	rm -rf ./.ruff_cache
+
+local_cross_version_sanity_check:
+	uvx --python 3.9 --prerelease allow prfiesta -u kiran94 --after 2025-01-01
+	uvx --python 3.10 --prerelease allow prfiesta -u kiran94 --after 2025-01-01
+	uvx --python 3.11 --prerelease allow prfiesta -u kiran94 --after 2025-01-01
+	uvx --python 3.12 --prerelease allow prfiesta -u kiran94 --after 2025-01-01
