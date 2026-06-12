@@ -179,12 +179,11 @@ See this [Notebook](https://github.com/kiran94/prfiesta/blob/main/notebooks/misc
 Assuming you have cloned the repository and are at the root of the repository in your terminal.
 
 ```bash
-poetry shell
-poetry install
-poetry build
+uv sync
+uv build
 ```
 
-This should leave you in a state where you have the virtual environment sourced, all dependencies are installed and `prfiesta` is installed locally.
+This should leave you in a state where all dependencies are installed and `prfiesta` is available through `uv run`.
 
 You can then leverage the various commands in the [makefile](https://github.com/kiran94/prfiesta/blob/main/makefile) for development tasks:
 
