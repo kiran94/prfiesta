@@ -1,6 +1,5 @@
 import logging
 from datetime import datetime
-from typing import Optional
 
 import pandas as pd
 from github import Github
@@ -42,14 +41,14 @@ class GitHubCollector:
 
     def collect(
         self,
-        *users: Optional[tuple[str]],
-        after: Optional[datetime] = None,
-        before: Optional[datetime] = None,
-        use_updated: Optional[bool] = False,
-        use_involves: Optional[bool] = False,
-        use_reviewed_by: Optional[bool] = False,
-        use_review_requested: Optional[bool] = False,
-        reference: Optional[str] = None,
+        *users: tuple[str] | None,
+        after: datetime | None = None,
+        before: datetime | None = None,
+        use_updated: bool | None = False,
+        use_involves: bool | None = False,
+        use_reviewed_by: bool | None = False,
+        use_review_requested: bool | None = False,
+        reference: str | None = None,
     ) -> pd.DataFrame:
         query = self._construct_query(users, after, before, use_updated, use_involves, use_reviewed_by, use_review_requested, reference)
 
@@ -85,14 +84,14 @@ class GitHubCollector:
 
     @staticmethod
     def _construct_query(
-        users: Optional[list[str]],
-        after: Optional[datetime] = None,
-        before: Optional[datetime] = None,
-        use_updated: Optional[bool] = False,
-        use_involves: Optional[bool] = False,
-        use_reviewed_by: Optional[bool] = False,
-        use_review_requested: Optional[bool] = False,
-        reference: Optional[str] = None,
+        users: list[str] | None,
+        after: datetime | None = None,
+        before: datetime | None = None,
+        use_updated: bool | None = False,
+        use_involves: bool | None = False,
+        use_reviewed_by: bool | None = False,
+        use_review_requested: bool | None = False,
+        reference: str | None = None,
     ) -> str:
         """
         Constructs a GitHub Search Query

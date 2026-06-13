@@ -1,6 +1,5 @@
 import calendar
 import logging
-from typing import Optional, Union
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -12,11 +11,11 @@ logger = logging.getLogger(__name__)
 _months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
 
-def plot_state_distribution(data: pd.DataFrame, **kwargs) -> Union[plt.Figure, plt.Axes, pd.DataFrame]:
-    ax: Optional[Axes] = kwargs.get("ax")
-    palette: Optional[str] = kwargs.get("palette")
-    title: Optional[str] = kwargs.get("title", "State Distribution")
-    hue: Optional[str] = kwargs.get("hue", "repository_name")
+def plot_state_distribution(data: pd.DataFrame, **kwargs) -> plt.Figure | plt.Axes | pd.DataFrame:
+    ax: Axes | None = kwargs.get("ax")
+    palette: str | None = kwargs.get("palette")
+    title: str | None = kwargs.get("title", "State Distribution")
+    hue: str | None = kwargs.get("hue", "repository_name")
 
     if ax:
         ax.set_title(title)
@@ -24,11 +23,11 @@ def plot_state_distribution(data: pd.DataFrame, **kwargs) -> Union[plt.Figure, p
     return sns.histplot(data, x="state", hue=hue, ax=ax, palette=palette)
 
 
-def plot_overall_timeline(data: pd.DataFrame, **kwargs) -> Union[plt.Figure, plt.Axes, pd.DataFrame]:
-    ax: Optional[Axes] = kwargs.get("ax")
-    palette: Optional[str] = kwargs.get("palette")
-    title: Optional[str] = kwargs.get("title", "Overall Contributions")
-    hue: Optional[str] = kwargs.get("hue", "month")
+def plot_overall_timeline(data: pd.DataFrame, **kwargs) -> plt.Figure | plt.Axes | pd.DataFrame:
+    ax: Axes | None = kwargs.get("ax")
+    palette: str | None = kwargs.get("palette")
+    title: str | None = kwargs.get("title", "Overall Contributions")
+    hue: str | None = kwargs.get("hue", "month")
 
     temp = data.copy()
 
@@ -56,10 +55,10 @@ def plot_overall_timeline(data: pd.DataFrame, **kwargs) -> Union[plt.Figure, plt
     return p
 
 
-def plot_author_associations(data: pd.DataFrame, **kwargs) -> Union[plt.Figure, plt.Axes, pd.DataFrame]:
-    ax: Optional[Axes] = kwargs.get("ax")
-    palette: Optional[str] = kwargs.get("palette")
-    title: Optional[str] = kwargs.get("title", "Author Associations")
+def plot_author_associations(data: pd.DataFrame, **kwargs) -> plt.Figure | plt.Axes | pd.DataFrame:
+    ax: Axes | None = kwargs.get("ax")
+    palette: str | None = kwargs.get("palette")
+    title: str | None = kwargs.get("title", "Author Associations")
 
     temp = data.groupby("author_association")["id"].count()
     temp.name = "count"
@@ -67,11 +66,11 @@ def plot_author_associations(data: pd.DataFrame, **kwargs) -> Union[plt.Figure, 
     return temp.plot.pie(ax=ax, title=title, legend=True, colormap=palette)
 
 
-def plot_conventional_commit_breakdown(data: pd.DataFrame, **kwargs) -> Union[plt.Figure, plt.Axes, pd.DataFrame]:
-    ax: Optional[Axes] = kwargs.get("ax")
-    palette: Optional[str] = kwargs.get("palette")
-    title: Optional[str] = kwargs.get("title", "Conventional Commit Breakdown")
-    hue: Optional[str] = kwargs.get("hue", "type")
+def plot_conventional_commit_breakdown(data: pd.DataFrame, **kwargs) -> plt.Figure | plt.Axes | pd.DataFrame:
+    ax: Axes | None = kwargs.get("ax")
+    palette: str | None = kwargs.get("palette")
+    title: str | None = kwargs.get("title", "Conventional Commit Breakdown")
+    hue: str | None = kwargs.get("hue", "type")
 
     conventional_commit_frame = (
         data["title"].str.extract(r"^(?P<type>feat|fix|docs|style|refactor|test|chore|build|ci|perf)(\((?P<scope>[A-Za-z-]+)\))?: (?P<subject>[^\n]+)$").copy()
@@ -99,12 +98,12 @@ def plot_conventional_commit_breakdown(data: pd.DataFrame, **kwargs) -> Union[pl
     return p
 
 
-def plot_reactions(data: pd.DataFrame, **kwargs) -> Union[plt.Figure, plt.Axes, pd.DataFrame]:
-    ax: Optional[Axes] = kwargs.get("ax")
-    palette: Optional[str] = kwargs.get("palette")
-    title: Optional[str] = kwargs.get("title", "Reactions")
-    hue: Optional[str] = kwargs.get("hue")
-    threshold: Optional[int] = kwargs.get("threshold")
+def plot_reactions(data: pd.DataFrame, **kwargs) -> plt.Figure | plt.Axes | pd.DataFrame:
+    ax: Axes | None = kwargs.get("ax")
+    palette: str | None = kwargs.get("palette")
+    title: str | None = kwargs.get("title", "Reactions")
+    hue: str | None = kwargs.get("hue")
+    threshold: int | None = kwargs.get("threshold")
 
     reaction_columns = [x for x in data.columns.tolist() if x.startswith("reactions.") and x not in ["reactions.url"]]
 
