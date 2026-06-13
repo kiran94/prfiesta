@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import Dict
 from unittest.mock import ANY, Mock, call, patch
 
 import pandas as pd
@@ -40,7 +39,7 @@ _mock_reaction_commit_axis = Mock()
     ],
 )
 @patch("prfiesta.analysis.plot.sns")
-def test_plot_state_distribution(mock_seaborn: Mock, options: Dict, expected_options: Dict) -> None:
+def test_plot_state_distribution(mock_seaborn: Mock, options: dict, expected_options: dict) -> None:
     data = pd.DataFrame(
         data={
             "state": ["opened", "closed"],
@@ -94,7 +93,7 @@ def test_plot_state_distribution(mock_seaborn: Mock, options: Dict, expected_opt
     ],
 )
 @patch("prfiesta.analysis.plot.sns")
-def test_plot_overall_timeline(mock_seaborn: Mock, options: Dict, expected_options: Dict) -> None:
+def test_plot_overall_timeline(mock_seaborn: Mock, options: dict, expected_options: dict) -> None:
     mock_barplot = Mock()
     mock_seaborn.barplot.return_value = mock_barplot
 
@@ -141,7 +140,7 @@ def test_plot_overall_timeline(mock_seaborn: Mock, options: Dict, expected_optio
         ),
     ],
 )
-def test_plot_author_associations(options: Dict, expected_options: Dict) -> None:
+def test_plot_author_associations(options: dict, expected_options: dict) -> None:
     agg_mock = Mock()
 
     data = Mock()
@@ -216,7 +215,7 @@ def test_plot_author_associations(options: Dict, expected_options: Dict) -> None
     ],
 )
 @patch("prfiesta.analysis.plot.sns")
-def test_plot_conventional_commit_breakdown(mock_seaborn: Mock, data: pd.DataFrame, options: Dict, expected_options: Dict) -> None:
+def test_plot_conventional_commit_breakdown(mock_seaborn: Mock, data: pd.DataFrame, options: dict, expected_options: dict) -> None:
     mock_barplot = Mock()
     mock_seaborn.barplot.return_value = mock_barplot
 
@@ -315,7 +314,7 @@ def test_plot_conventional_commit_breakdown_no_valid_commits(mock_seaborn: Mock)
     ],
 )
 @patch("prfiesta.analysis.plot.sns")
-def test_plot_reactions(mock_seaborn: Mock, data: pd.DataFrame, options: Dict, expected_options: Dict) -> None:
+def test_plot_reactions(mock_seaborn: Mock, data: pd.DataFrame, options: dict, expected_options: dict) -> None:
     mock_scatter = Mock()
     mock_seaborn.scatterplot.return_value = mock_scatter
 

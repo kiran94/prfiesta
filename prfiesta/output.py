@@ -2,7 +2,7 @@ import logging
 import os
 import re
 from datetime import datetime
-from typing import Literal, Optional
+from typing import Literal
 
 import duckdb
 import pandas as pd
@@ -20,8 +20,8 @@ def output_frame(
     frame: pd.DataFrame,
     output_type: OUTPUT_TYPE,
     spinner: Spinner,
-    output_name: Optional[str] = None,
-    timestamp: Optional[datetime] = None,
+    output_name: str | None = None,
+    timestamp: datetime | None = None,
 ) -> None:
     if not timestamp:
         timestamp = datetime.now()
