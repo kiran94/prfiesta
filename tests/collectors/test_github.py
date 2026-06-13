@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import List, Tuple
 from unittest.mock import Mock, call, patch
 
 import pytest
@@ -160,9 +159,9 @@ _mock_issue2.__dict__ = {
 @patch("prfiesta.collectors.github.Github")
 def test_collect(
     mock_github: Mock,
-    collect_users: Tuple[str],
+    collect_users: tuple[str],
     collect_params: dict,
-    github_issues: List[Mock],
+    github_issues: list[Mock],
     expected_github_query: str,
 ) -> None:
     spinner_mock = Mock()

@@ -1,6 +1,6 @@
 import logging
 from datetime import datetime
-from typing import List, Optional, Tuple
+from typing import Optional
 
 import pandas as pd
 from github import Github
@@ -42,7 +42,7 @@ class GitHubCollector:
 
     def collect(
         self,
-        *users: Optional[Tuple[str]],
+        *users: Optional[tuple[str]],
         after: Optional[datetime] = None,
         before: Optional[datetime] = None,
         use_updated: Optional[bool] = False,
@@ -85,7 +85,7 @@ class GitHubCollector:
 
     @staticmethod
     def _construct_query(
-        users: Optional[List[str]],
+        users: Optional[list[str]],
         after: Optional[datetime] = None,
         before: Optional[datetime] = None,
         use_updated: Optional[bool] = False,
@@ -112,7 +112,7 @@ class GitHubCollector:
         All dates are inclusive.
         See GitHub Docs for full options https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests
         """
-        query: List[str] = []
+        query: list[str] = []
         query.append("type:pr")
 
         author_filter = "author"

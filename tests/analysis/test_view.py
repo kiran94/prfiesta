@@ -1,5 +1,4 @@
 from datetime import datetime, timezone
-from typing import Dict
 from unittest.mock import Mock, patch
 
 import pandas as pd
@@ -121,7 +120,7 @@ _now = datetime.now(timezone.utc)
     ],
 )
 @patch("prfiesta.analysis.view.HTML")
-def test_view_pull_request(mock_html: Mock, data: pd.DataFrame, options: Dict, expected: pd.DataFrame) -> None:
+def test_view_pull_request(mock_html: Mock, data: pd.DataFrame, options: dict, expected: pd.DataFrame) -> None:
     mock_html.return_value = "DUMMY"
 
     result = view_pull_requests(data, **options)

@@ -1,6 +1,5 @@
 import os
 from datetime import datetime
-from typing import List
 from unittest.mock import ANY, Mock, call, patch
 
 import pandas as pd
@@ -21,7 +20,7 @@ FAILURE_CODE = 2
         pytest.param(["--users", "user", "--use-involves", "--use-review-requested"]),
     ],
 )
-def test_main_author_filters_mutually_exclusive(arguments: List[str]) -> None:
+def test_main_author_filters_mutually_exclusive(arguments: list[str]) -> None:
     runner = CliRunner()
     result = runner.invoke(main, arguments)
 
@@ -277,8 +276,8 @@ def test_main(
     mock_collector: Mock,
     mock_live: Mock,
     mock_spinner: Mock,
-    params: List[str],
-    expected_collect_params: List,
+    params: list[str],
+    expected_collect_params: list,
     collect_response: pd.DataFrame,
     expected_output_type: str,
     expected_output: str,
