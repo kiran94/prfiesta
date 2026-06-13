@@ -1,40 +1,40 @@
 all: lint coverage
 
+sync:
+	uv sync --locked
+
+build:
+	uv build
+
 test:
-	poetry run pytest -vv
+	uv run pytest -vv
 
 lint:
-	poetry run ruff check $(if $(GITHUB_ACTIONS),--output-format github,) .
+	uv run ruff check $(if $(GITHUB_ACTIONS),--output-format github,) .
 
 format:
-	poetry run ruff format .
-	poetry run ruff check --fix .
+	uv run ruff format .
+	uv run ruff check --fix .
 
 coverage:
-	poetry run pytest -q --cov=prfiesta --cov-report=term # for local
-	poetry run pytest -q --cov=prfiesta --cov-report=html # for local
+	uv run pytest -q --cov=prfiesta --cov-report=term # for local
+	uv run pytest -q --cov=prfiesta --cov-report=html # for local
 
-	# for sonarqube
-	$(if $(GITHUB_ACTIONS),poetry run pytest -q --cov=prfiesta --cov-report=xml,)
-
-	# for github action
-	$(if $(GITHUB_ACTIONS),poetry run pytest -q --cov=prfiesta --cov-report=lcov,)
-
-export_requirements:
-	poetry export --with dev --output requirements.txt
+coverage_ci:
+	uv run pytest -q --cov=prfiesta --cov-report=xml --cov-report=lcov
 
 precommit_install:
-	pre-commit install
+	uv run pre-commit install
 
 precommit_run:
-	pre-commit run --all-files
+	uv run pre-commit run --all-files
 
 validate_notebooks:
-	poetry run bash ./notebooks/scripts/run_all.sh './notebooks/plots/*.ipynb' 'notebooks/plots'
-	poetry run bash ./notebooks/scripts/run_all.sh './notebooks/views/*.ipynb' 'notebooks/views'
+	uv run bash ./notebooks/scripts/run_all.sh './notebooks/plots/*.ipynb' 'notebooks/plots'
+	uv run bash ./notebooks/scripts/run_all.sh './notebooks/views/*.ipynb' 'notebooks/views'
 
 integration_test:
-	poetry run papermill --cwd notebooks/misc ./notebooks/misc/integration_test.ipynb ./notebooks/misc/integration_test.ipynb
+	uv run papermill --cwd notebooks/misc ./notebooks/misc/integration_test.ipynb ./notebooks/misc/integration_test.ipynb
 
 clean:
 	rm -rf ./htmlcov
