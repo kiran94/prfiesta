@@ -1,6 +1,6 @@
 [project]
 name = "prfiesta"
-version = "0.14.0"
+version = "0.2.0"
 description = "Collect and Analyze Individual Contributor Pull Requests"
 authors = [{ name = "kiran94" }]
 license = { text = "MIT" }
