@@ -5,7 +5,7 @@ description = "Collect and Analyze Individual Contributor Pull Requests"
 authors = [{ name = "kiran94" }]
 license = { text = "MIT" }
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 keywords = [ "pull-request", "pull-request-review", "performance-review" ]
 classifiers = [
     "Intended Audience :: Developers",
@@ -61,7 +61,7 @@ module-name = "prfiesta"
 
 [tool.ruff]
 line-length = 160
-target-version = "py38"
+target-version = "py310"
 
 # All Rules: https://beta.ruff.rs/docs/rules/
 select = [
