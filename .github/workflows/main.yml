@@ -138,7 +138,7 @@ jobs:
 
       - name: Comment (Prerelease)
         if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
-        uses: thollander/actions-comment-pull-request@v2
+        uses: thollander/actions-comment-pull-request@v3.0.1
         with:
           message: |
             Change was prereleased to pypi. Try it out :rocket:
@@ -149,7 +149,7 @@ jobs:
 
             https://pypi.org/project/prfiesta/${{steps.prerelease.outputs.VERSION}}/
 
-          comment_tag: execution
+          comment-tag: execution
 
       # Main Release
       - name: Bump Version
